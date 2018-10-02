@@ -37,9 +37,12 @@ public class PlatformerCharacter2D : MonoBehaviour
     bool walledRight = false;
     bool walledLeft = false;
 
-    //Dashed Jump Management
-    [SerializeField] float maxJumpForce = 400f;			// Maximum force added when the player charges jumps.
-    float nextDashedJumpForce = 0f;
+    //Charged Jump Management
+    [SerializeField] float maxJumpForce = 1200f;			// Maximum force added when the player charges jumps.
+    [SerializeField] float fullChargeTime = 2;			// Maximum force added when the player charges jumps.
+    float nextChargedJumpForce = 0f;
+    bool isChargingJump = false;
+    
 
     public bool Grounded
     {
@@ -78,14 +81,20 @@ public class PlatformerCharacter2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool crouch, bool jump)
+	public void Move(float move, bool crouch, bool jump, bool jumpRelease)
 	{
 
 
 		// If crouching, check to see if the character can stand up
 		if(!crouch && anim.GetBool("Crouch"))
 		{
-            nextDashedJumpForce = jumpForce;
+            if(isChargingJump)
+            {
+                Jump(0f, nextChargedJumpForce);
+            }
+            
+            nextChargedJumpForce = jumpForce;
+            isChargingJump = false;
 
 			// If the character has a ceiling preventing them from standing up, keep them crouching
 			if( Physics2D.OverlapCircle(ceilingCheck.position, ceilingRadius, whatIsGround))
@@ -94,6 +103,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 		// Set whether or not the character is crouching in the animator
 		anim.SetBool("Crouch", crouch);
+
+
 
 		//only control the player if grounded or airControl is turned on
 		if(Grounded || airControl)
@@ -129,6 +140,15 @@ public class PlatformerCharacter2D : MonoBehaviour
         {
             //If grounded, restore all jumps
             AirJumpCounter = maxAirJumps;
+            
+            if (isChargingJump) {
+                if(jumpRelease)
+                {
+                    Jump(0f, nextChargedJumpForce);
+                    nextChargedJumpForce = jumpForce;
+                    isChargingJump = false;
+                }
+            }
         }
 
         if ( !Grounded && (walledRight || walledLeft) && jump)
@@ -146,20 +166,16 @@ public class PlatformerCharacter2D : MonoBehaviour
             }
         }
 
-        if (Grounded && jump)
+        if (anim.GetBool("Crouch") && jump)
         {
-            nextDashedJumpForce = Mathf.Min(nextDashedJumpForce++, maxJumpForce);
+            isChargingJump = true;
         }
 
         // If the player should jump...
         // Player must have remaining jumps
         if ((Grounded || !(walledRight || walledLeft) &&  AirJumpCounter > 0) && jump) {
             // Add a vertical force to the player.
-            if (anim.GetBool("Crouch"))
-            {
-                Jump(0f, nextDashedJumpForce);
-                nextDashedJumpForce = jumpForce;
-            } else
+            if (!isChargingJump)
             {
                 Jump(0f, jumpForce);
             }
@@ -172,6 +188,12 @@ public class PlatformerCharacter2D : MonoBehaviour
             {
                 AirJumpCounter--;
             }
+        }
+
+        if (isChargingJump)
+        {
+            
+            nextChargedJumpForce = Mathf.Min(nextChargedJumpForce + (maxJumpForce - jumpForce)/60*fullChargeTime, maxJumpForce);
         }
 	}
 
