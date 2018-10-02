@@ -6,7 +6,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 
     [SerializeField] float HorizontalAcceleration = 1f;
 	[SerializeField] float maxSpeed = 10f;				// The fastest the player can travel in the x axis.
-	[SerializeField] float jumpForce = 400f;			// Amount of force added when the player jumps.	
+	[SerializeField] float jumpForce = 400f;			// Amount of force added when the player jumps.		
 	[SerializeField] float wallJumpMult = 1f;			// Relative power of a Wall Jump.	
 	[SerializeField] float WallHorizontalForce = 40000f;	// Amount of force added when the player walljump (horizontal).	
 
@@ -28,12 +28,18 @@ public class PlatformerCharacter2D : MonoBehaviour
     [SerializeField] int maxAirJumps = 1;
     private int AirJumpCounter = 0;
 
+
+    //Airjump management
     [SerializeField] bool wallJumpResetsAirJumps = false;
     Transform wallCheckRight;
     Transform wallCheckLeft;
     float walledRadius = 0.2f;
     bool walledRight = false;
     bool walledLeft = false;
+
+    //Dashed Jump Management
+    [SerializeField] float maxJumpForce = 400f;			// Maximum force added when the player charges jumps.
+    float nextDashedJumpForce = 0f;
     
 
     void Awake()
@@ -68,6 +74,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 		// If crouching, check to see if the character can stand up
 		if(!crouch && anim.GetBool("Crouch"))
 		{
+            nextDashedJumpForce = jumpForce;
+
 			// If the character has a ceiling preventing them from standing up, keep them crouching
 			if( Physics2D.OverlapCircle(ceilingCheck.position, ceilingRadius, whatIsGround))
 				crouch = true;
@@ -127,12 +135,26 @@ public class PlatformerCharacter2D : MonoBehaviour
             }
         }
 
+        if (grounded && jump)
+        {
+            nextDashedJumpForce = Mathf.Min(nextDashedJumpForce++, maxJumpForce);
+        }
+
         // If the player should jump...
         // Player must have remaining jumps
         if ((grounded || !(walledRight || walledLeft) &&  AirJumpCounter > 0) && jump) {
             // Add a vertical force to the player.
+            if (anim.GetBool("Crouch"))
+            {
+                Jump(0f, nextDashedJumpForce);
+                nextDashedJumpForce = jumpForce;
+            } else
+            {
+                Jump(0f, jumpForce);
+            }
+
             anim.SetBool("Ground", false);
-            Jump(0f, jumpForce);
+
 
             //Consume a jump
             if (!grounded)
