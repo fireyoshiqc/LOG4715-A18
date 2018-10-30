@@ -20,8 +20,8 @@ public class CameraFollow : MonoBehaviour
 	{
 		// Setting up the reference.
 		player = GameObject.FindGameObjectWithTag("Player");
-        characterComponent = player.GetComponent<PlatformerCharacter2D>();
-    }
+    characterComponent = player.GetComponent<PlatformerCharacter2D>();
+  }
 
 
 	bool CheckXMargin()

@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Supercyan Character Pack Free Sample/Scenes/DemoScene.unity
+  isLoaded: 1
+  isActive: 1
