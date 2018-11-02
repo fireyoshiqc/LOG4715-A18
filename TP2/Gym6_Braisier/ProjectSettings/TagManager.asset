@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - torch
+  - Lava
   layers:
   - Default
   - TransparentFX

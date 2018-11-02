@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class BrasierAction : MonoBehaviour {
 
-    public GameObject torch;
-    public bool lit = false; 
+    private GameObject torch;
+    public bool lit = false;
+    public PlayerControler player;
+    public DoorMover LinkedDoor;
 
 	// Use this for initialization
 	void Start () {
-        PutOut();
-	}
+        if (!lit)
+        {
+            PutOut();
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,8 +33,6 @@ public class BrasierAction : MonoBehaviour {
             lit = true;
             LightItUp();
         }
-
-
     }
 
     void OnTriggerExit(Collider col)
@@ -45,6 +48,10 @@ public class BrasierAction : MonoBehaviour {
         {
             light.enabled = true;
         }
+        player.SpawnPos.y = transform.position.y;
+        player.SpawnPos.z = transform.position.z;
+        if(LinkedDoor)
+            LinkedDoor.InteractedUpdate(true);
     }
 
     void PutOut()
