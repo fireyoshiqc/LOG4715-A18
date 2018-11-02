@@ -1,54 +1,108 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BalancingPlatform : MonoBehaviour {
 
     [SerializeField]
-    float rotation;
+    float minimumX = -40;
     [SerializeField]
-    float speed = 5f;
+    float maximumX = 40;
+    [SerializeField]
+    float speed = 1f;
+    float rotationX = 0F;
+    private List<float> rotArrayX = new List<float>();
+	float rotAverageX = 0F;	
+    public float frameCounter = 20;
 
     bool isClockwise, isMoving = false;
-    float startTime,
-        length;
+    float startTime;
+    float delayToStop = 5f;
     Quaternion clockWise, counterClockWise;
+    Quaternion originalRotation;
 
     void Start () {
-        clockWise = new Quaternion(rotation, transform.rotation.y, transform.rotation.z, transform.rotation.w);
-        counterClockWise = new Quaternion(-rotation, transform.rotation.y, transform.rotation.z, transform.rotation.w);
-
-        length = Quaternion.Angle(clockWise, counterClockWise);
+        //clockWise = new Quaternion(maxRotation, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+        //counterClockWise = new Quaternion(-maxRotation, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+        originalRotation = transform.localRotation;
+        //length = Quaternion.Angle(clockWise, counterClockWise);
     }
 
     void Update()
     {
-        if (isClockwise && isMoving)
+        if (Time.time - startTime > delayToStop)
         {
-            //move Down
-            transform.rotation = Quaternion.Lerp(transform.rotation, clockWise, ((Time.time - startTime) * speed));
+            isMoving = false;
         }
-        else if (isMoving)
+
+        if (isMoving)
         {
-            //move Up
-            transform.rotation = Quaternion.Lerp(transform.rotation, counterClockWise, ((Time.time - startTime) * speed));
+            rotAverageX = 0f;
+		    rotationX = (isClockwise)? rotationX - speed : rotationX + speed;
+		    rotArrayX.Add(rotationX);
+ 
+		    if (rotArrayX.Count >= frameCounter) {
+			    rotArrayX.RemoveAt(0);
+		    }
+		    for(int i = 0; i < rotArrayX.Count; i++) {
+			    rotAverageX += rotArrayX[i];
+		    }
+		    rotAverageX /= rotArrayX.Count;
+ 
+		    rotAverageX = ClampAngle(rotationX, minimumX, maximumX);
+ 
+		    Quaternion xQuaternion = Quaternion.AngleAxis (rotAverageX, Vector3.left);
+		    //transform.localRotation = originalRotation * xQuaternion;	
+            //transform.Rotate(Vector3.left, rotAverageX);
+            transform.rotation = Quaternion.Lerp(transform.rotation, originalRotation * xQuaternion, speed);
         }
+        
+        //if (isClockwise && isMoving)
+        //{
+        //    //transform.rotation = Quaternion.Lerp(transform.rotation, clockWise, speed);
+
+        //    transform.Rotate(Vector3.left * Time.deltaTime * speed);
+        //}
+        //else if (isMoving)
+        //{
+        //    //transform.rotation = Quaternion.Lerp(transform.rotation, counterClockWise, speed);
+        //    Vector3 rotationToApply = Vector3.right * Time.deltaTime * speed;
+        //    transform.rotation.
+        //    if (Mathf.Abs((rotationToApply.x + transform.rotation.x)) < maxRotation)
+        //    {
+        //        transform.Rotate(rotationToApply);
+        //    }
+        //}
     }
 
-    //move down
     void OnCollisionEnter(Collision col)
     {
-        startTime = Time.time;
         isMoving = true;
     }
 
     private void OnCollisionStay(Collision collision)
     {
+        startTime = Time.time;
         isClockwise = (transform.position.z - collision.transform.position.z > 0);
     }
 
-    //move up
-    void OnCollisionExit(Collision col)
-    {
-        isMoving = false;
-    }
+    //void OnCollisionExit(Collision col)
+    //{
+    //    this.startTime = Time.time;
+    //    //isMoving = false;
+    //}
+
+    float ClampAngle (float angle, float min, float max)
+	{
+		angle = angle % 360;
+		if ((angle >= -360F) && (angle <= 360F)) {
+			if (angle < -360F) {
+				angle += 360F;
+			}
+			if (angle > 360F) {
+				angle -= 360F;
+			}			
+		}
+		return Mathf.Clamp (angle, min, max);
+	}
 }
