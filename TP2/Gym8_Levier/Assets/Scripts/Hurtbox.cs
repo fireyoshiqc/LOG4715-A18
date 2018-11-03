@@ -19,9 +19,11 @@ public class Hurtbox : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        //vector from self-transform to target-transform
+        Vector3 direction = collision.transform.position - gameObject.transform.position;
         //Hurt the player & send them flying back a bit
         collision.gameObject.SendMessage("Hurt", Damage, SendMessageOptions.DontRequireReceiver);
-        collision.gameObject.SendMessage("Knockback", null, SendMessageOptions.DontRequireReceiver);
+        collision.gameObject.SendMessage("Knockback", direction, SendMessageOptions.DontRequireReceiver);
     }
 
     //Just in case

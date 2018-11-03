@@ -12,6 +12,7 @@ public class PlayerControler : MonoBehaviour
     // Déclaration des variables
     bool _Grounded { get; set; }
     bool _Flipped { get; set; }
+    bool _Knockedback { get; set; }
     Animator _Anim { get; set; }
     Rigidbody _Rb { get; set; }
     Camera _MainCamera { get; set; }
@@ -55,6 +56,7 @@ public class PlayerControler : MonoBehaviour
     {
         _Grounded = false;
         _Flipped = false;
+        _Knockedback = false;
     }
 
     // Vérifie les entrées de commandes du joueur
@@ -72,14 +74,13 @@ public class PlayerControler : MonoBehaviour
     {
         //Lock onto plane
         _Rb.position = new Vector3(_DEPTH, _Rb.position.y, _Rb.position.z);
-        //if (_Grounded)
-        //{
-        //    _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, horizontal);
-        //}
-        //else
+
+        float acceleration = 0;
+        if (!_Knockedback)
         {
-            _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, Mathf.Clamp((_Rb.velocity.z * (1 - SpeedFalloff)) + horizontal/2, -MoveSpeed, MoveSpeed));
+            acceleration = horizontal / 2;
         }
+        _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, Mathf.Clamp((_Rb.velocity.z * (1 - SpeedFalloff)) + acceleration, -MoveSpeed, MoveSpeed));
         _Anim.SetFloat("MoveSpeed", Mathf.Abs(_Rb.velocity.z));
     }
 
@@ -128,16 +129,21 @@ public class PlayerControler : MonoBehaviour
         if (coll.relativeVelocity.y > 0)
         {
             _Grounded = true;
+            _Knockedback = false;
             _Anim.SetBool("Grounded", _Grounded);
         }
     }
 
-    public void Knockback()
+    public void Knockback(Vector3 direction)
     {
+        direction = new Vector3(0, /*direction.y*/0, direction.z).normalized;
         _Rb.velocity = new Vector3(_Rb.velocity.x, 0, _Rb.velocity.z);
-        //!? il faudrait revoir mouvement; appliquer une force aide vraiment pas
-        _Rb.AddForce(new Vector3(0, 0.5f, 0) * KnockbackForce, ForceMode.Impulse);
-        _Grounded = false;
+        //Slight Upwards kick
+        _Rb.AddForce(new Vector3(0, 0.5f * KnockbackForce, 0), ForceMode.Impulse);
+        _Rb.AddForce(direction * KnockbackForce, ForceMode.Impulse);
+        _Knockedback = true;
+        StartCoroutine(KnockbackTimer()); 
+
     }
 
     private void CheckInteract()
@@ -156,5 +162,11 @@ public class PlayerControler : MonoBehaviour
             //Also notify Animator
             _Anim.SetTrigger("Interact");
         }
+    }
+
+    IEnumerator KnockbackTimer()
+    {
+        yield return new WaitForSeconds(1);
+        _Knockedback = false;
     }
 }
