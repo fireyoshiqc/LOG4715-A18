@@ -8,6 +8,7 @@ public class PlayerControler : MonoBehaviour
     private static readonly Vector3 FlipRotation = new Vector3(0, 180, 0);
     private static readonly Vector3 CameraPosition = new Vector3(10, 1, 0);
     private static readonly Vector3 InverseCameraPosition = new Vector3(-10, 1, 0);
+    public Vector3 SpawnPos;
 
     // Déclaration des variables
     bool _Grounded { get; set; }
@@ -37,6 +38,7 @@ public class PlayerControler : MonoBehaviour
     // Utile pour régler des valeurs aux objets
     void Start()
     {
+        SpawnPos = transform.position;
         _Grounded = false;
         _Flipped = false;
     }
@@ -104,5 +106,16 @@ public class PlayerControler : MonoBehaviour
             _Grounded = true;
             _Anim.SetBool("Grounded", _Grounded);
         }
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Lava")
+            Respawn();  
+    }
+
+    void Respawn()
+    {
+        transform.position = SpawnPos;
     }
 }

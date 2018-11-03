@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4288314608625870}
   - component: {fileID: 198698256791287212}
   - component: {fileID: 199982092265781408}
-  - component: {fileID: 114973397333895624}
   m_Layer: 0
   m_Name: Fire (1)
   m_TagString: Untagged
@@ -199,17 +198,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114973397333895624
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1006412742223354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed279fe2d9b807e44b644875ec819c19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &136188290648782424
 CapsuleCollider:
   m_ObjectHideFlags: 1

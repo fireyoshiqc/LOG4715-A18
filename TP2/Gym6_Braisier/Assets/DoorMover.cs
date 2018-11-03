@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Platform_Mover : MonoBehaviour {
+public class DoorMover : MonoBehaviour {
 
     [SerializeField]
     Transform Origin;
@@ -26,10 +26,6 @@ public class Platform_Mover : MonoBehaviour {
         currentTime = Mathf.Clamp(currentTime + Time.deltaTime * timescale, 0, TimeToMove);
 
         float move_ratio = (currentTime / TimeToMove);
-        Debug.Log(Origin.localPosition);
-        Debug.Log(Target.localPosition);
-        Debug.Log(Origin.localRotation);
-        Debug.Log(Target.localRotation);
         transform.localPosition = Vector3.Lerp(Origin.localPosition, Target.localPosition, move_ratio);
         transform.localRotation = Quaternion.Lerp(Origin.localRotation, Target.localRotation, move_ratio);
     }
