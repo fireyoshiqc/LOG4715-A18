@@ -6,11 +6,10 @@ public class Healbox : MonoBehaviour {
 
     [SerializeField]
     [Range(0, 10)]
-    float HealthPerSecond;
+    float HealthPerSecond = 1f;
 
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
@@ -18,8 +17,19 @@ public class Healbox : MonoBehaviour {
 		
 	}
 
-    private void OnCollisionStay(Collision collision)
+    float timeSinceEnter = 0f;
+    private void OnTriggerEnter(Collider other)
     {
-        
+        timeSinceEnter = 0f;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (timeSinceEnter > 1/HealthPerSecond)
+        {
+            other.gameObject.SendMessage("Heal", 1, SendMessageOptions.DontRequireReceiver);
+            timeSinceEnter = 0f;
+        }
+        timeSinceEnter += Time.deltaTime;
     }
 }

@@ -23,6 +23,10 @@ public class PlayerControler : MonoBehaviour
     float MoveSpeed = 5.0f;
 
     [SerializeField]
+    [Range(0, 1)]
+    float SpeedFalloff = 0.1f;
+
+    [SerializeField]
     float JumpForce = 10f;
 
     [SerializeField]
@@ -34,11 +38,14 @@ public class PlayerControler : MonoBehaviour
     [SerializeField]
     LayerMask CanInteractWith;
 
+    float _DEPTH;
+
     // Awake se produit avait le Start. Il peut être bien de régler les références dans cette section.
     void Awake()
     {
         _Anim = GetComponent<Animator>();
         _Rb = GetComponent<Rigidbody>();
+        _DEPTH = _Rb.position.x;
         _MainCamera = Camera.main;
         InteractZone = transform.Find("InteractZone");
     }
@@ -63,8 +70,17 @@ public class PlayerControler : MonoBehaviour
     // Gère le mouvement horizontal
     void HorizontalMove(float horizontal)
     {
-        _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, horizontal);
-        _Anim.SetFloat("MoveSpeed", Mathf.Abs(horizontal));
+        //Lock onto plane
+        _Rb.position = new Vector3(_DEPTH, _Rb.position.y, _Rb.position.z);
+        //if (_Grounded)
+        //{
+        //    _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, horizontal);
+        //}
+        //else
+        {
+            _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, Mathf.Clamp((_Rb.velocity.z * (1 - SpeedFalloff)) + horizontal/2, -MoveSpeed, MoveSpeed));
+        }
+        _Anim.SetFloat("MoveSpeed", Mathf.Abs(_Rb.velocity.z));
     }
 
     // Gère le saut du personnage, ainsi que son animation de saut
@@ -118,8 +134,10 @@ public class PlayerControler : MonoBehaviour
 
     public void Knockback()
     {
+        _Rb.velocity = new Vector3(_Rb.velocity.x, 0, _Rb.velocity.z);
         //!? il faudrait revoir mouvement; appliquer une force aide vraiment pas
-        //_Rb.AddForce(new Vector3(0, 0.5f, _Flipped ? 1 : -1) * KnockbackForce, ForceMode.Impulse);
+        _Rb.AddForce(new Vector3(0, 0.5f, 0) * KnockbackForce, ForceMode.Impulse);
+        _Grounded = false;
     }
 
     private void CheckInteract()

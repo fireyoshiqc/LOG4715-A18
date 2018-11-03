@@ -7,10 +7,10 @@ public class PlayerHealth : MonoBehaviour {
 
     [SerializeField]
     [Range(1, 20)]
-    int MaxHealth;
+    int MaxHealth = 5;
     [SerializeField]
     [Range(0, 2)]
-    float MercyInvulnerability;
+    float MercyInvulnerability = 0;
     [SerializeField]
     Texture HeartTexture;
 

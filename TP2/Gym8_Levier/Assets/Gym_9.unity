@@ -163,11 +163,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 4
+  SpeedFalloff: 0.044
   JumpForce: 7
   KnockbackForce: 5
   WhatIsGround:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 768
   CanInteractWith:
     serializedVersion: 2
     m_Bits: 512
@@ -177,7 +178,7 @@ SphereCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 302335471}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a1db915d9501b1746bb017d78816184e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -221,8 +222,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c45f1417ddbe74d868a097c06fc1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 0
-  MercyInvulnerability: 0
+  MaxHealth: 5
+  MercyInvulnerability: 0.21
+  HeartTexture: {fileID: 2800000, guid: e5fdfd07578022d408cfe42b0871ea57, type: 3}
+  HeartSize: 21
 --- !u!1 &359345898
 GameObject:
   m_ObjectHideFlags: 0
