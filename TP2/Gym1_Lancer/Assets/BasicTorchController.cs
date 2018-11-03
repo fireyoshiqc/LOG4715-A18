@@ -104,6 +104,7 @@ public class BasicTorchController : MonoBehaviour
     // light intensity.
     foreach (Light light in lights)
     {
+      light.enabled = true;
       light.intensity = sum / lightSmoothing.Length;
     }
   }
