@@ -3,48 +3,97 @@ using System.Collections;
 
 public class PulleyPlatform : MonoBehaviour {
 
-    public Vector3 up, down;
-    bool isUp, isMoving = false;
-    public float speed = 5f;
+    [SerializeField]
+    GameObject[] linkedPlatforms;
+    public float speed = 1;
+    
+    [SerializeField]
+    bool isUp = true;
 
-    float startTime,
-        length;
+    bool isMoving = false;
+    float currentMovement = 0;
+    float length;
+    public Vector3 upmostPosition, downmostPosition;
+
 
     void Start () {
-        //initialise the platform to a position
-        if (isUp) transform.position = up;
-        else transform.position = down;
+        length = Vector3.Distance(upmostPosition, downmostPosition);
 
-        length = Vector3.Distance(up, down);
+        //initialise the platform to a position
+        if (isUp) transform.position = upmostPosition;
+        else transform.position = downmostPosition;
     }
 
     void Update()
     {
-        if (isUp && isMoving)
+        currentMovement = Time.deltaTime * speed / length;
+
+        if (isMoving)
         {
-            //move Down
-            transform.position = Vector3.Lerp(up, down, ((Time.time - startTime) * speed) / length);
-        }
-        else if (isMoving)
-        {
-            //move Up
-            transform.position = Vector3.Lerp(down, up, ((Time.time - startTime) * speed) / length);
+            Move(true);
         }
     }
 
-    //move down
-    void OnCollisionEnter(Collision col)
+    void LinkMove(LinkedMovement linkedMovement)
+    { 
+        isUp = linkedMovement.isUp;
+        currentMovement = linkedMovement.movement;
+        Move(false);
+    }
+
+    void SendInformationToLinkedPlatforms()
     {
-        startTime = Time.time;
-        isUp = false;
+         foreach (GameObject t in linkedPlatforms) {
+            LinkedMovement informationToSend = new LinkedMovement(!isUp, currentMovement);
+            { t.SendMessage("LinkMove", informationToSend, SendMessageOptions.DontRequireReceiver); }
+            }
+    }
+
+    void Move(bool sendToOthers)
+    {
+        if (isUp && transform.position != upmostPosition)
+        {
+            MoveUp();
+        } else if (transform.position != downmostPosition)
+        {
+            MoveDown();
+        }
+        if (sendToOthers)
+        {
+            SendInformationToLinkedPlatforms();
+        }
+    }
+
+    void MoveUp()
+    {
+        transform.position = Vector3.Lerp(transform.position, upmostPosition, currentMovement); 
+    }
+
+    void MoveDown()
+    {
+        transform.position = Vector3.Lerp(transform.position, downmostPosition, currentMovement);   
+    }
+        
+    void OnCollisionEnter(Collision collision)
+    {
+        isUp = (transform.position.y - collision.transform.position.y > 0);
         isMoving = true;
     }
 
-    //move up
-    void OnCollisionExit(Collision col)
+    void OnCollisionExit(Collision collision)
     {
-        startTime = Time.time;
         isUp = true;
-        isMoving = true;
+        isMoving = false;
     }
+}
+public class LinkedMovement
+{
+        public LinkedMovement(bool isUp, float movement)
+        {
+            this.isUp = isUp;
+            this.movement = movement;
+        }
+
+        public bool isUp { get; set; }
+        public float movement { get; set; }
 }
