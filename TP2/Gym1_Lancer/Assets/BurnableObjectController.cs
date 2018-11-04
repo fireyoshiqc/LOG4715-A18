@@ -13,7 +13,7 @@ public class BurnableObjectController : MonoBehaviour
   private Color delta;
   private Material burnShader;
   private float initialBurnTime;
-  private GameObject torch;
+  private BasicTorchController torch;
   private ParticleSystem.EmissionModule flameEmission;
   private ParticleSystem.EmissionModule ashEmission;
   private Light[] lights;
@@ -69,7 +69,10 @@ public class BurnableObjectController : MonoBehaviour
       if (lit)
       {
         GetComponent<Renderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
+        foreach (Collider collider in GetComponents<Collider>())
+        {
+          collider.enabled = false;
+        }
         ashEmission.enabled = true;
         GetComponentsInChildren<ParticleSystem>()[1].Play();
         Destroy(gameObject, 2.0f);
@@ -78,21 +81,39 @@ public class BurnableObjectController : MonoBehaviour
     }
   }
 
-  void OnTriggerEnter(Collider col)
+  private void OnTriggerEnter(Collider col)
   {
     if (lit) return;
     if (col.gameObject.tag == "torch")
     {
       if (!torch)
-        torch = col.gameObject;
+        torch = col.gameObject.GetComponent<BasicTorchController>();
 
-      lit = true;
-      flameEmission.enabled = true;
-      //LightItUp();
+      if (torch.flameLife > 0.0f)
+      {
+        lit = true;
+        flameEmission.enabled = true;
+      }
     }
   }
 
-  void OnTriggerExit(Collider col)
+  private void OnTriggerStay(Collider col)
+  {
+    if (lit) return;
+    if (col.gameObject.tag == "torch")
+    {
+      if (!torch)
+        torch = col.gameObject.GetComponent<BasicTorchController>();
+
+      if (torch.flameLife > 0.0f)
+      {
+        lit = true;
+        flameEmission.enabled = true;
+      }
+    }
+  }
+
+  private void OnTriggerExit(Collider col)
   {
 
   }

@@ -26,7 +26,7 @@ public class BasicTorchController : MonoBehaviour
   // Use this for initialization
   void Start()
   {
-    particles = GetComponent<ParticleSystem>();
+    particles = GetComponentInChildren<ParticleSystem>();
     if (particles == null)
     {
       Debug.LogError("No particle system found for BasicTorchController script.");
