@@ -771,7 +771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUp: 0
   speed: 1
-  isPositive: 1
+  isPositive: 0
   upmostPosition: {x: 0, y: 3, z: 3.34}
   downmostPosition: {x: 0, y: 2, z: 3.34}
   massToApply: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUp: 1
   speed: 1
-  isPositive: 0
+  isPositive: 1
   upmostPosition: {x: 0, y: 2, z: 0.8}
   downmostPosition: {x: 0, y: 1, z: 0.8}
   massToApply: 0

@@ -30,7 +30,7 @@ public class PulleyPlatform : MonoBehaviour {
 
     void Update()
     {
-        currentMovement = Time.deltaTime * speed * massToApply / length;
+        currentMovement = Time.deltaTime * speed * Mathf.Abs(massToApply) / length;
 
         Move();
 
@@ -50,7 +50,7 @@ public class PulleyPlatform : MonoBehaviour {
 
     bool goingUp()
     {
-        if (isPositive && massToApply < 0 || !isPositive && massToApply > 0)
+        if ((isPositive && massToApply < 0) || (!isPositive && massToApply > 0))
         {
             return true;
         }
