@@ -22,7 +22,7 @@ public class WaterfallController : MonoBehaviour {
 
   private void OnTriggerEnter(Collider col)
   {
-    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
+    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern" || col.gameObject.tag == "scepter")
     {
       if (!torch)
         torch = col.gameObject.GetComponent<FlameController>();
@@ -31,7 +31,7 @@ public class WaterfallController : MonoBehaviour {
 
   private void OnTriggerStay(Collider col)
   {
-    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
+    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern" || col.gameObject.tag == "scepter")
     {
       if (!torch)
         torch = col.gameObject.GetComponent<FlameController>();

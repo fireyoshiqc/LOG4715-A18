@@ -1,35 +1,19 @@
 fileFormatVersion: 2
-guid: 4dbd5a52ccbd2f04c8ba5cdd55a46b85
+guid: 151aeb54f8c8c8347b062779bc45fde8
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: Lantern_glass
-    2100002: Lantern_metal
-    2100004: Candle_wax
+    2100000: CrystalMat
+    2100002: StaffMat__StaffTex
+    2100004: HornMat__HornTex
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cylinder_003
+    4300000: Icosphere
     7400000: Default Take
     9500000: //RootNode
-    2186277476908879412: ImportLogs
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Candle_wax
-    second: {fileID: 2100000, guid: 15b6b70a11e92444e81e5fa0e02cdc2a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Lantern_glass
-    second: {fileID: 2100000, guid: 50d359c94cb468b4a8f7ee0cd704abfd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Lantern_metal
-    second: {fileID: 2100000, guid: 9eaab89867bb6584aa7c4c6ddb26be67, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
