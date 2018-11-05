@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicTorchController : MonoBehaviour
+public class FlameController : MonoBehaviour
 {
   [Range(0.0f, float.PositiveInfinity)]
   public float flameLife = 1.0f; // Current flame life, up to max. 0 means the flame has died out.
@@ -29,7 +29,7 @@ public class BasicTorchController : MonoBehaviour
     particles = GetComponentInChildren<ParticleSystem>();
     if (particles == null)
     {
-      Debug.LogError("No particle system found for BasicTorchController script.");
+      Debug.LogError("No particle system found for FlameController script.");
       this.enabled = false;
     }
 
@@ -39,7 +39,7 @@ public class BasicTorchController : MonoBehaviour
     lights = GetComponentsInChildren<Light>();
     if (lights.Length == 0)
     {
-      Debug.LogError("No lights found for BasicTorchController script.");
+      Debug.LogError("No lights found for FlameController script.");
       this.enabled = false;
     }
 

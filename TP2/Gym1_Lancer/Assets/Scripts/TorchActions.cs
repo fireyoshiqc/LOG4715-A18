@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TorchActions : MonoBehaviour {
 
-  public GameObject torch;
+  public GameObject currentHeldItem;
+  public GameObject otherItem;
   public bool canHold = true;
   public Transform guide;
 
@@ -36,12 +37,12 @@ public class TorchActions : MonoBehaviour {
         Pickup();
     }
 
-    if (!canHold && torch)
-      torch.transform.position = guide.position;
+    if (!canHold && currentHeldItem)
+      currentHeldItem.transform.position = guide.position;
 
     if (Input.GetMouseButton(0))
     {
-      if (!canHold && torch)
+      if (!canHold && currentHeldItem)
       {
         DrawThrowTarget();
         if (_currentThrowForce < maxThrowForce)
@@ -68,51 +69,66 @@ public class TorchActions : MonoBehaviour {
 
   void OnTriggerEnter(Collider col)
   {
-    if (col.gameObject.tag == "torch")
-      if (!torch)
-        torch = col.gameObject;
+    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
+    {
+      if (!currentHeldItem)
+        currentHeldItem = col.gameObject;
+      else
+        otherItem = col.gameObject;
+    }
+      
 
   }
 
   void OnTriggerExit(Collider col)
   {
-    if (col.gameObject.tag == "torch")
-    {
+    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
+      {
       if (canHold)
-        torch = null;
+        currentHeldItem = null;
+      else
+        otherItem = null;
     }
   }
 
   private void Pickup()
   {
-    if (!torch)
+    if (!currentHeldItem)
       return;
 
-    torch.GetComponent<Rigidbody>().isKinematic = true;
-    torch.transform.SetParent(guide);
+    currentHeldItem.GetComponent<Rigidbody>().isKinematic = true;
+    currentHeldItem.transform.SetParent(guide);
+    currentHeldItem.transform.localRotation = guide.rotation;
+    if (currentHeldItem.tag == "torch")
+      currentHeldItem.transform.Rotate(0, 0, 180); // Rotate otherwise it's upside-down...
+    if (currentHeldItem.tag == "lantern")
+      currentHeldItem.transform.Rotate(-90, 0, 0); // Rotate otherwise it's sideways
 
-    torch.transform.localRotation = guide.rotation;
-    torch.transform.Rotate(0, 0, 180); // Rotate otherwise it's upside-down...
-
-    torch.transform.position = guide.position;
+    currentHeldItem.transform.position = guide.position;
 
     canHold = false;
   }
 
   private void Drop()
   {
-    if (!torch)
+    if (!currentHeldItem)
     {
       return;
     }
-    torch.GetComponent<Rigidbody>().isKinematic = false;
+    currentHeldItem.GetComponent<Rigidbody>().isKinematic = false;
     guide.GetChild(0).parent = null;
     canHold = true;
+    if (otherItem)
+    {
+      currentHeldItem = otherItem;
+      otherItem = null;
+      Pickup();
+    }
   }
 
   private void DrawThrowTarget()
   {
-    if (!torch)
+    if (!currentHeldItem)
       return;
 
     Vector3 mousePos = Input.mousePosition;
@@ -120,12 +136,12 @@ public class TorchActions : MonoBehaviour {
     RaycastHit hit;
     if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
     {
-      Vector3 direction = (hit.point - torch.transform.position).normalized;
+      Vector3 direction = (hit.point - currentHeldItem.transform.position).normalized;
 
       float forceRatio = (_currentThrowForce / maxThrowForce);
 
-      Vector3 target = torch.transform.position + forceRatio * direction * targetLineLengthModifier;
-      Vector3[] positions = { torch.transform.position, target };
+      Vector3 target = currentHeldItem.transform.position + forceRatio * direction * targetLineLengthModifier;
+      Vector3[] positions = { currentHeldItem.transform.position, target };
 
       _lineRenderer.startWidth = targetLineMaxWidth * forceRatio;
       _lineRenderer.endWidth = targetLineMaxWidth * forceRatio;
@@ -138,7 +154,7 @@ public class TorchActions : MonoBehaviour {
 
   private void Throw()
   {
-    if (!torch)
+    if (!currentHeldItem)
       return;
 
     Vector3 mousePos = Input.mousePosition;
@@ -146,12 +162,12 @@ public class TorchActions : MonoBehaviour {
     RaycastHit hit;
     if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
     {
-      torch.GetComponent<Rigidbody>().isKinematic = false;
+      currentHeldItem.GetComponent<Rigidbody>().isKinematic = false;
       guide.GetChild(0).parent = null;
-      Vector3 toMouse = hit.point - torch.transform.position;
+      Vector3 toMouse = hit.point - currentHeldItem.transform.position;
       toMouse.x = 0; // Remove the useless depth component
-      torch.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce);
-      torch.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0,1,0), (toMouse.normalized * _currentThrowForce)));
+      currentHeldItem.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce);
+      currentHeldItem.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0,1,0), (toMouse.normalized * _currentThrowForce)));
       canHold = true;
     }
     _currentThrowForce = 0.0f;

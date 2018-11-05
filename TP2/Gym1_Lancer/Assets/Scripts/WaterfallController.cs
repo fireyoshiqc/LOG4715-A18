@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaterfallController : MonoBehaviour {
 
   public float flameReductionStrength = 1.0f;
-  private BasicTorchController torch;
+  private FlameController torch;
 
   // Use this for initialization
   void Start () {
@@ -22,19 +22,19 @@ public class WaterfallController : MonoBehaviour {
 
   private void OnTriggerEnter(Collider col)
   {
-    if (col.gameObject.tag == "torch")
+    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
     {
       if (!torch)
-        torch = col.gameObject.GetComponent<BasicTorchController>();
+        torch = col.gameObject.GetComponent<FlameController>();
     }
   }
 
   private void OnTriggerStay(Collider col)
   {
-    if (col.gameObject.tag == "torch")
+    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
     {
       if (!torch)
-        torch = col.gameObject.GetComponent<BasicTorchController>();
+        torch = col.gameObject.GetComponent<FlameController>();
     }
   }
 

@@ -13,7 +13,7 @@ public class BurnableObjectController : MonoBehaviour
   private Color delta;
   private Material burnShader;
   private float initialBurnTime;
-  private BasicTorchController torch;
+  private FlameController torch;
   private ParticleSystem.EmissionModule flameEmission;
   private ParticleSystem.EmissionModule ashEmission;
   private Light[] lights;
@@ -83,39 +83,57 @@ public class BurnableObjectController : MonoBehaviour
 
   private void OnTriggerEnter(Collider col)
   {
-    if (lit) return;
-    if (col.gameObject.tag == "torch")
+    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
     {
-      if (!torch)
-        torch = col.gameObject.GetComponent<BasicTorchController>();
-
-      if (torch.flameLife > 0.0f)
+      if (!torch || col.gameObject.GetComponent<FlameController>().flameLife > torch.flameLife)
+        torch = col.gameObject.GetComponent<FlameController>();
+      if (lit)
+      {
+        torch.flameLife = torch.maxFlameLife;
+      }
+      else if (torch.flameLife > 0.0f)
       {
         lit = true;
         flameEmission.enabled = true;
       }
+    }
+    else if (col.gameObject.tag == "burns")
+    {
+      if (lit)
+        col.gameObject.GetComponent<BurnableObjectController>().lit = true;
     }
   }
 
   private void OnTriggerStay(Collider col)
   {
-    if (lit) return;
-    if (col.gameObject.tag == "torch")
+    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
     {
-      if (!torch)
-        torch = col.gameObject.GetComponent<BasicTorchController>();
-
-      if (torch.flameLife > 0.0f)
+      if (!torch || col.gameObject.GetComponent<FlameController>().flameLife > torch.flameLife)
+        torch = col.gameObject.GetComponent<FlameController>();
+      if (lit)
+      {
+        torch.flameLife = torch.maxFlameLife;
+      }
+      else if (torch.flameLife > 0.0f)
       {
         lit = true;
         flameEmission.enabled = true;
       }
     }
+    else if (col.gameObject.tag == "burns")
+    {
+      if (lit)
+        col.gameObject.GetComponent<BurnableObjectController>().lit = true;
+    }
   }
 
   private void OnTriggerExit(Collider col)
   {
-
+    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
+    {
+      if (torch)
+        torch = null;
+    }
   }
 
   private void UpdateLights()
