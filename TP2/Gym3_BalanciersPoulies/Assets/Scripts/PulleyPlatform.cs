@@ -1,20 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PulleyPlatform : MonoBehaviour {
 
     [SerializeField]
-    GameObject[] linkedPlatforms;
-    public float speed = 1;
-    
-    [SerializeField]
     bool isUp = true;
+    [SerializeField]
+    float speed = 5;
 
-    bool isMoving = false;
+    public bool isPositive = true;
+
     float currentMovement = 0;
     float length;
+
     public Vector3 upmostPosition, downmostPosition;
 
+    [HideInInspector]
+    public float massToApply = 0;
+    [HideInInspector]
+    public float massOnPlatform;
 
     void Start () {
         length = Vector3.Distance(upmostPosition, downmostPosition);
@@ -26,42 +30,32 @@ public class PulleyPlatform : MonoBehaviour {
 
     void Update()
     {
-        currentMovement = Time.deltaTime * speed / length;
+        currentMovement = Time.deltaTime * speed * massToApply / length;
 
-        if (isMoving)
-        {
-            Move(true);
-        }
+        Move();
+
+        //massOnPlatform = 0;
     }
 
-    void LinkMove(LinkedMovement linkedMovement)
-    { 
-        isUp = linkedMovement.isUp;
-        currentMovement = linkedMovement.movement;
-        Move(false);
-    }
-
-    void SendInformationToLinkedPlatforms()
+    void Move()
     {
-         foreach (GameObject t in linkedPlatforms) {
-            LinkedMovement informationToSend = new LinkedMovement(!isUp, currentMovement);
-            { t.SendMessage("LinkMove", informationToSend, SendMessageOptions.DontRequireReceiver); }
-            }
-    }
-
-    void Move(bool sendToOthers)
-    {
-        if (isUp && transform.position != upmostPosition)
+        if (goingUp() && transform.position != upmostPosition)
         {
             MoveUp();
         } else if (transform.position != downmostPosition)
         {
             MoveDown();
         }
-        if (sendToOthers)
+    }
+
+    bool goingUp()
+    {
+        if (isPositive && massToApply < 0 || !isPositive && massToApply > 0)
         {
-            SendInformationToLinkedPlatforms();
+            return true;
         }
+            
+        return false;
     }
 
     void MoveUp()
@@ -77,23 +71,20 @@ public class PulleyPlatform : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         isUp = (transform.position.y - collision.transform.position.y > 0);
-        isMoving = true;
+        massOnPlatform = collision.rigidbody.mass;
+        //massOnPlatform = (isUp) ? -collision.rigidbody.mass : collision.rigidbody.mass;
     }
 
-    void OnCollisionExit(Collision collision)
+     private void OnCollisionStay(Collision collision)
     {
-        isUp = true;
-        isMoving = false;
+        //isUp = (transform.position.y - collision.transform.position.y > 0);
+        //massOnPlatform += collision.rigidbody.mass;
+        //massOnPlatform += (isUp) ? collision.rigidbody.mass : -collision.rigidbody.mass;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        massOnPlatform = 0;
     }
 }
-public class LinkedMovement
-{
-        public LinkedMovement(bool isUp, float movement)
-        {
-            this.isUp = isUp;
-            this.movement = movement;
-        }
 
-        public bool isUp { get; set; }
-        public float movement { get; set; }
-}
