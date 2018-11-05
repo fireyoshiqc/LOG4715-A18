@@ -178,7 +178,7 @@ SphereCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 302335471}
-  m_Material: {fileID: 13400000, guid: a1db915d9501b1746bb017d78816184e, type: 2}
+  m_Material: {fileID: 13400000, guid: a939e149debab7042a04f1c205954cfd, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
