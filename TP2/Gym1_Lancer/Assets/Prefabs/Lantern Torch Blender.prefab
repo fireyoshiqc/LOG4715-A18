@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 64164371779992566}
   - component: {fileID: 114677025200449766}
   m_Layer: 10
-  m_Name: Lantern Torch
+  m_Name: Lantern Torch Blender
   m_TagString: lantern
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

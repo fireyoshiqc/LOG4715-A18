@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TorchActions : MonoBehaviour {
 
-  public GameObject currentHeldItem;
-  public GameObject otherItem;
-  public bool canHold = true;
+  public GameObject torch;
+  public GameObject lantern;
+  public GameObject currentlyHeld;
   public Transform guide;
 
   public float maxThrowForce = 500.0f;
@@ -31,18 +31,18 @@ public class TorchActions : MonoBehaviour {
 
     if (Input.GetKeyDown(KeyCode.E))
     {
-      if (!canHold)
+      if (currentlyHeld)
         Drop();
       else
         Pickup();
     }
 
-    if (!canHold && currentHeldItem)
-      currentHeldItem.transform.position = guide.position;
+    if (currentlyHeld)
+      currentlyHeld.transform.position = guide.position;
 
     if (Input.GetMouseButton(0))
     {
-      if (!canHold && currentHeldItem)
+      if (currentlyHeld)
       {
         DrawThrowTarget();
         if (_currentThrowForce < maxThrowForce)
@@ -69,66 +69,94 @@ public class TorchActions : MonoBehaviour {
 
   void OnTriggerEnter(Collider col)
   {
-    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
+    if (col.gameObject.tag == "torch")
     {
-      if (!currentHeldItem)
-        currentHeldItem = col.gameObject;
-      else
-        otherItem = col.gameObject;
+      if (!torch)
+        torch = col.gameObject;
     }
-      
+    if (col.gameObject.tag == "lantern")
+    {
+      if (!lantern)
+        lantern = col.gameObject;
+    }
+  }
 
+  void OnTriggerStay(Collider col)
+  {
+    if (col.gameObject.tag == "torch")
+    {
+      if (!torch)
+        torch = col.gameObject;
+    }
+    if (col.gameObject.tag == "lantern")
+    {
+      if (!lantern)
+        lantern = col.gameObject;
+    }
   }
 
   void OnTriggerExit(Collider col)
   {
-    if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
-      {
-      if (canHold)
-        currentHeldItem = null;
-      else
-        otherItem = null;
+    if (col.gameObject.tag == "torch")
+    {
+      if (torch)
+        torch = null;
+    }
+    if (col.gameObject.tag == "lantern")
+    {
+      if (lantern)
+        lantern = null;
     }
   }
 
   private void Pickup()
   {
-    if (!currentHeldItem)
+    if (!(torch || lantern))
       return;
-
-    currentHeldItem.GetComponent<Rigidbody>().isKinematic = true;
-    currentHeldItem.transform.SetParent(guide);
-    currentHeldItem.transform.localRotation = guide.rotation;
-    if (currentHeldItem.tag == "torch")
-      currentHeldItem.transform.Rotate(0, 0, 180); // Rotate otherwise it's upside-down...
-    if (currentHeldItem.tag == "lantern")
-      currentHeldItem.transform.Rotate(-90, 0, 0); // Rotate otherwise it's sideways
-
-    currentHeldItem.transform.position = guide.position;
-
-    canHold = false;
+    if (torch)
+    {
+      torch.GetComponent<Rigidbody>().isKinematic = true;
+      torch.transform.SetParent(guide);
+      torch.transform.localRotation = guide.rotation;
+      torch.transform.Rotate(0, 0, 180); // Rotate otherwise it's upside-down...
+      torch.transform.position = guide.position;
+      currentlyHeld = torch;
+    }
+    else if (lantern)
+    {
+      lantern.GetComponent<Rigidbody>().isKinematic = true;
+      lantern.transform.SetParent(guide);
+      lantern.transform.localRotation = guide.rotation;
+      lantern.transform.Rotate(-90, 0, 0); // Rotate for 3D model
+      lantern.transform.position = guide.position;
+      currentlyHeld = lantern;
+    }
   }
 
   private void Drop()
   {
-    if (!currentHeldItem)
-    {
+    if (!currentlyHeld)
       return;
-    }
-    currentHeldItem.GetComponent<Rigidbody>().isKinematic = false;
-    guide.GetChild(0).parent = null;
-    canHold = true;
-    if (otherItem)
+    if (currentlyHeld == torch)
     {
-      currentHeldItem = otherItem;
-      otherItem = null;
+      torch = null;
+    }
+    if (currentlyHeld == lantern)
+    {
+      lantern = null;
+    }
+    currentlyHeld.GetComponent<Rigidbody>().isKinematic = false;
+    guide.GetChild(0).parent = null;
+    currentlyHeld = null;
+    if (torch || lantern)
+    {
       Pickup();
     }
   }
 
   private void DrawThrowTarget()
   {
-    if (!currentHeldItem)
+    if (!currentlyHeld)
       return;
 
     Vector3 mousePos = Input.mousePosition;
@@ -136,12 +164,12 @@ public class TorchActions : MonoBehaviour {
     RaycastHit hit;
     if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
     {
-      Vector3 direction = (hit.point - currentHeldItem.transform.position).normalized;
+      Vector3 direction = (hit.point - currentlyHeld.transform.position).normalized;
 
       float forceRatio = (_currentThrowForce / maxThrowForce);
 
-      Vector3 target = currentHeldItem.transform.position + forceRatio * direction * targetLineLengthModifier;
-      Vector3[] positions = { currentHeldItem.transform.position, target };
+      Vector3 target = currentlyHeld.transform.position + forceRatio * direction * targetLineLengthModifier;
+      Vector3[] positions = { currentlyHeld.transform.position, target };
 
       _lineRenderer.startWidth = targetLineMaxWidth * forceRatio;
       _lineRenderer.endWidth = targetLineMaxWidth * forceRatio;
@@ -154,7 +182,7 @@ public class TorchActions : MonoBehaviour {
 
   private void Throw()
   {
-    if (!currentHeldItem)
+    if (!currentlyHeld)
       return;
 
     Vector3 mousePos = Input.mousePosition;
@@ -162,13 +190,17 @@ public class TorchActions : MonoBehaviour {
     RaycastHit hit;
     if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
     {
-      currentHeldItem.GetComponent<Rigidbody>().isKinematic = false;
+      if (currentlyHeld == torch)
+        torch = null;
+      if (currentlyHeld == lantern)
+        lantern = null;
+      currentlyHeld.GetComponent<Rigidbody>().isKinematic = false;
       guide.GetChild(0).parent = null;
-      Vector3 toMouse = hit.point - currentHeldItem.transform.position;
+      Vector3 toMouse = hit.point - currentlyHeld.transform.position;
       toMouse.x = 0; // Remove the useless depth component
-      currentHeldItem.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce);
-      currentHeldItem.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0,1,0), (toMouse.normalized * _currentThrowForce)));
-      canHold = true;
+      currentlyHeld.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce);
+      currentlyHeld.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0,1,0), (toMouse.normalized * _currentThrowForce)));
+      currentlyHeld = null;
     }
     _currentThrowForce = 0.0f;
     _lineRenderer.enabled = false;

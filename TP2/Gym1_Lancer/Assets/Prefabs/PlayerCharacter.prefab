@@ -1411,9 +1411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d614991afca9a745bc74f01103398fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHeldItem: {fileID: 0}
-  otherItem: {fileID: 0}
-  canHold: 1
+  torch: {fileID: 0}
+  lantern: {fileID: 0}
+  currentlyHeld: {fileID: 0}
   guide: {fileID: 4524756537031754}
   maxThrowForce: 500
   throwChargeRate: 350
