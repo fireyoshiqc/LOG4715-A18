@@ -267,7 +267,7 @@ public class TorchActions : MonoBehaviour
         float ratio = Mathf.Clamp(_currentThrowForce / maxThrowForce, 0.2f, 1);
         _currentThrowForce = 0.0f;
         FlameController flame = scepter.GetComponent<FlameController>();
-        if(flame.flameLife == 0)
+        if(flame.flameLife < float.Epsilon)
         {
             return;
         }
