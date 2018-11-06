@@ -14,14 +14,14 @@ public class TorchActions : MonoBehaviour
 
     public float maxThrowForce = 500.0f;
     public float throwChargeRate = 350.0f;
-    [Range(0, 100)]
+    [Range(0.0f, 100.0f)]
     public float fireBallBaseSpeed = 3;
     //coût en % de la vie de la torche maximale pour un tir chargé au maximum
-    [Range(0, 1)]
+    [Range(0.0f, 1.0f)]
     public float scepterMaxFlameCost = 0.1f;
-    [Range(0, float.PositiveInfinity)]
-    public float scepterShootDelay = 500f;
-    private float currentScepterDelay = 0;
+    [Range(0.0f, float.PositiveInfinity)]
+    public float scepterShootDelay = 0.5f;
+    private float currentScepterDelay = 0.0f;
     private float _currentThrowForce = 0.0f;
 
     public float targetLineLengthModifier = 3.0f;
@@ -60,7 +60,7 @@ public class TorchActions : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (currentlyHeld && currentlyHeld != scepter || currentlyHeld == scepter && currentScepterDelay == 0)
+            if (currentlyHeld && currentlyHeld != scepter || currentlyHeld == scepter && currentScepterDelay < float.Epsilon)
             {
                 DrawThrowTarget();
                 if (_currentThrowForce < maxThrowForce)
@@ -85,13 +85,13 @@ public class TorchActions : MonoBehaviour
                 {
                     Throw();
                 }
-                else if(currentScepterDelay == 0)
+                else if(currentScepterDelay < float.Epsilon)
                 {
                     ShootFireBall();
                 }
             }
         }
-        currentScepterDelay = Mathf.Max(0, currentScepterDelay - Time.deltaTime);
+        currentScepterDelay = Mathf.Max(0.0f, currentScepterDelay - Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider col)
@@ -267,7 +267,7 @@ public class TorchActions : MonoBehaviour
         float ratio = Mathf.Clamp(_currentThrowForce / maxThrowForce, 0.2f, 1);
         _currentThrowForce = 0.0f;
         FlameController flame = scepter.GetComponent<FlameController>();
-        if(flame.flameLife == 0)
+        if(flame.flameLife < float.Epsilon)
         {
             return;
         }
