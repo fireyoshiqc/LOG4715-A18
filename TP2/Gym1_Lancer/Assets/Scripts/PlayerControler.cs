@@ -13,6 +13,7 @@ public class PlayerControler : MonoBehaviour
     // Déclaration des variables
     bool _Grounded { get; set; }
     bool _Flipped { get; set; }
+    bool _Knockedback { get; set; }
     Animator _Anim { get; set; }
     Rigidbody _Rb { get; set; }
     Camera _MainCamera { get; set; }
@@ -20,18 +21,30 @@ public class PlayerControler : MonoBehaviour
     // Valeurs exposées
     [SerializeField]
     float MoveSpeed = 5.0f;
-
+    [SerializeField]
+    [Range(0, 1)]
+    float SpeedFalloff = 0.1f;
     [SerializeField]
     float JumpForce = 10f;
+    [SerializeField]
+    float KnockbackForce = 5f;
 
     [SerializeField]
     LayerMask WhatIsGround;
+    [SerializeField]
+    LayerMask CanInteractWith;
+
+    [SerializeField]
+    BoxCollider InteractZone;
+
+    float _DEPTH;
 
     // Awake se produit avait le Start. Il peut être bien de régler les références dans cette section.
     void Awake()
     {
         _Anim = GetComponent<Animator>();
         _Rb = GetComponent<Rigidbody>();
+        _DEPTH = _Rb.position.x;
         _MainCamera = Camera.main;
     }
 
@@ -41,6 +54,7 @@ public class PlayerControler : MonoBehaviour
         SpawnPos = transform.position;
         _Grounded = false;
         _Flipped = false;
+        _Knockedback = false;
     }
 
     // Vérifie les entrées de commandes du joueur
@@ -50,13 +64,22 @@ public class PlayerControler : MonoBehaviour
         HorizontalMove(horizontal);
         FlipCharacter(horizontal);
         CheckJump();
+        CheckInteract();
     }
 
     // Gère le mouvement horizontal
     void HorizontalMove(float horizontal)
     {
-        _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, horizontal);
-        _Anim.SetFloat("MoveSpeed", Mathf.Abs(horizontal));
+        //Lock onto plane
+        _Rb.position = new Vector3(_DEPTH, _Rb.position.y, _Rb.position.z);
+
+        float acceleration = 0;
+        if (!_Knockedback)
+        {
+            acceleration = horizontal / 2;
+        }
+        _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, Mathf.Clamp((_Rb.velocity.z * (1 - SpeedFalloff)) + acceleration, -MoveSpeed, MoveSpeed));
+        _Anim.SetFloat("MoveSpeed", Mathf.Abs(_Rb.velocity.z));
     }
 
     // Gère le saut du personnage, ainsi que son animation de saut
@@ -104,7 +127,38 @@ public class PlayerControler : MonoBehaviour
         if (coll.relativeVelocity.y > 0)
         {
             _Grounded = true;
+            _Knockedback = false;
             _Anim.SetBool("Grounded", _Grounded);
+        }
+    }
+
+    public void Knockback(Vector3 direction)
+    {
+        direction = new Vector3(0, /*direction.y*/0, direction.z).normalized;
+        _Rb.velocity = new Vector3(_Rb.velocity.x, 0, _Rb.velocity.z);
+        //Slight Upwards kick
+        _Rb.AddForce(new Vector3(0, 0.5f * KnockbackForce, 0), ForceMode.Impulse);
+        _Rb.AddForce(direction * KnockbackForce, ForceMode.Impulse);
+        _Knockedback = true;
+        StartCoroutine(KnockbackTimer());
+
+    }
+
+    private void CheckInteract()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //Test for interactable
+            Collider[] hitColliders = Physics.OverlapBox(InteractZone.transform.position + InteractZone.center, InteractZone.size / 2, Quaternion.identity, CanInteractWith);
+            //if found activate it
+            foreach (Collider c in hitColliders)
+            {
+                //All component attached to the gameObject that have an "ActivateInteraction" function
+                //will react to the message and call the function.
+                c.gameObject.SendMessage("ActivateInteraction");
+            }
+            //Also notify Animator
+            _Anim.SetTrigger("Interact");
         }
     }
 
@@ -117,5 +171,11 @@ public class PlayerControler : MonoBehaviour
     void Respawn()
     {
         transform.position = SpawnPos;
+    }
+
+    IEnumerator KnockbackTimer()
+    {
+        yield return new WaitForSeconds(1);
+        _Knockedback = false;
     }
 }

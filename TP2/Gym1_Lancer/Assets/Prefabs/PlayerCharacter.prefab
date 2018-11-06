@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 4607321360246016}
   m_Layer: 9
   m_Name: PlayerCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1110,7 +1110,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1697920611890776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.001208663, y: 0.546, z: -4.76}
+  m_LocalPosition: {x: -0.21, y: 0.77, z: 0.92994994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4493725022430940}
@@ -1395,11 +1395,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3105ba9e0e5f92c418138c60dc647197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnPos: {x: 0, y: 0, z: 0}
   MoveSpeed: 4
+  SpeedFalloff: 0.1
   JumpForce: 7
+  KnockbackForce: 5
   WhatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  CanInteractWith:
+    serializedVersion: 2
+    m_Bits: 16384
+  InteractZone: {fileID: 65634450020151350}
 --- !u!114 &114488718891116326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1413,10 +1420,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   torch: {fileID: 0}
   lantern: {fileID: 0}
+  scepter: {fileID: 0}
   currentlyHeld: {fileID: 0}
   guide: {fileID: 4524756537031754}
+  fireball: {fileID: 0}
   maxThrowForce: 500
   throwChargeRate: 350
+  fireBallBaseSpeed: 3
+  scepterMaxFlameCost: 0.1
+  scepterShootDelay: 500
   targetLineLengthModifier: 3
   targetLineMaxWidth: 0.05
 --- !u!124 &124033698895787602
@@ -1432,7 +1444,7 @@ SphereCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1918502160619532}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a939e149debab7042a04f1c205954cfd, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

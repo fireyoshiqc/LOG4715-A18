@@ -9,6 +9,7 @@ TagManager:
   - burns
   - scepter
   - fireball
+  - Lava
   layers:
   - Default
   - TransparentFX
@@ -24,9 +25,9 @@ TagManager:
   - Burnable
   - Triggers
   - FireBall
-  - 
-  - 
-  - 
+  - Interactable
+  - Darkness
+  - Light
   - 
   - 
   - 
