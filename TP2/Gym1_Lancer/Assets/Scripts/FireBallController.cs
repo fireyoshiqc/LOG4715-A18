@@ -26,4 +26,12 @@ public class FireBallController : MonoBehaviour {
     {
         Destroy(gameObject);
     }
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if(coll.gameObject.tag == "water")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

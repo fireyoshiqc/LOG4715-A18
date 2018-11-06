@@ -10,6 +10,7 @@ TagManager:
   - scepter
   - fireball
   - Lava
+  - water
   layers:
   - Default
   - TransparentFX

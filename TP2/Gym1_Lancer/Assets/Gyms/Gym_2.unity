@@ -192,11 +192,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.07
+      value: 0.37
       objectReference: {fileID: 0}
     - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 2000
+      value: 26.43
       objectReference: {fileID: 0}
     - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1098,7 +1098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 8192
   maxTravelDistance: 50
 --- !u!1 &1312779049
 GameObject:
@@ -1243,6 +1243,14 @@ Prefab:
         type: 2}
       propertyPath: flameReductionStrength
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082735265421884, guid: 2ad1c46bc4dd5444d9ef159c3ab30d15, type: 2}
+      propertyPath: m_Layer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082735265421884, guid: 2ad1c46bc4dd5444d9ef159c3ab30d15, type: 2}
+      propertyPath: m_TagString
+      value: water
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad1c46bc4dd5444d9ef159c3ab30d15, type: 2}
