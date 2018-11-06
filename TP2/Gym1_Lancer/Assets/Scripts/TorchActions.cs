@@ -14,7 +14,14 @@ public class TorchActions : MonoBehaviour
 
     public float maxThrowForce = 500.0f;
     public float throwChargeRate = 350.0f;
+    [Range(0, 100)]
     public float fireBallBaseSpeed = 3;
+    //coût en % de la vie de la torche maximale pour un tir chargé au maximum
+    [Range(0, 1)]
+    public float scepterMaxFlameCost = 0.1f;
+    [Range(0, float.PositiveInfinity)]
+    public float scepterShootDelay = 500f;
+    private float currentScepterDelay = 0;
     private float _currentThrowForce = 0.0f;
 
     public float targetLineLengthModifier = 3.0f;
@@ -34,7 +41,6 @@ public class TorchActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (currentlyHeld)
@@ -54,7 +60,7 @@ public class TorchActions : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (currentlyHeld)
+            if (currentlyHeld && currentlyHeld != scepter || currentlyHeld == scepter && currentScepterDelay == 0)
             {
                 DrawThrowTarget();
                 if (_currentThrowForce < maxThrowForce)
@@ -79,13 +85,13 @@ public class TorchActions : MonoBehaviour
                 {
                     Throw();
                 }
-                else
+                else if(currentScepterDelay == 0)
                 {
                     ShootFireBall();
                 }
             }
         }
-
+        currentScepterDelay = Mathf.Max(0, currentScepterDelay - Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider col)
@@ -257,19 +263,39 @@ public class TorchActions : MonoBehaviour
 
     private void ShootFireBall()
     {
+        _lineRenderer.enabled = false;
+        float ratio = Mathf.Clamp(_currentThrowForce / maxThrowForce, 0.2f, 1);
+        _currentThrowForce = 0.0f;
+        FlameController flame = scepter.GetComponent<FlameController>();
+        if(flame.flameLife == 0)
+        {
+            return;
+        }
+        float fireBallCost = flame.maxFlameLife * scepterMaxFlameCost * ratio;
+        if (flame.flameLife < fireBallCost)
+        {
+            //trouver le ratio qui donne un coût égal à la vie restante
+            ratio = flame.flameLife / (flame.maxFlameLife * scepterMaxFlameCost);
+            //si le ratio est trop petit, aucune fireball n'apparaît
+            if(ratio < 0.2f)
+            {
+                return;
+            }
+            fireBallCost = flame.flameLife;
+        }
+        flame.flameLife -= fireBallCost;
+
         Vector3 mousePos = Input.mousePosition;
         Ray castPoint = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
         Rigidbody fireballClone = Instantiate(fireball, currentlyHeld.transform.position, currentlyHeld.transform.rotation).GetComponent<Rigidbody>();
 
-        // fireBall.velocity = transform.forward * speed;
         if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
         {
             Vector3 toMouse = hit.point - currentlyHeld.transform.position;
             toMouse.x = 0; // Remove the useless depth component
-            fireballClone.velocity = toMouse.normalized * fireBallBaseSpeed * Mathf.Clamp(_currentThrowForce / maxThrowForce, 0.2f, 1);
+            fireballClone.velocity = toMouse.normalized * fireBallBaseSpeed * ratio;
         }
-        _currentThrowForce = 0.0f;
-        _lineRenderer.enabled = false;
+        currentScepterDelay = scepterShootDelay;
     }
 }

@@ -1286,6 +1286,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114341909430369810, guid: f8f72b1145f8dee4590f5da0c7751229,
+        type: 2}
+      propertyPath: regenRate
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8f72b1145f8dee4590f5da0c7751229, type: 2}
   m_IsPrefabAsset: 0
@@ -1427,6 +1432,11 @@ Prefab:
         type: 2}
       propertyPath: fireBallBaseSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114488718891116326, guid: 6e9734bcd8652494abc9ef2e52217ef3,
+        type: 2}
+      propertyPath: scepterMaxFlameCost
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e9734bcd8652494abc9ef2e52217ef3, type: 2}
