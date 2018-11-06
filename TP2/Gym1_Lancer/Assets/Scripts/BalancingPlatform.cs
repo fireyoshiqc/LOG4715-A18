@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,30 +9,29 @@ public class BalancingPlatform : MonoBehaviour {
     [SerializeField]
     float maximumAngle = 40;
     [SerializeField]
-    float speed = 50f;
+    float speed = 1f;
 
-	float rotationToApply = 0f;	
-    float currentRotation = 0f;
+    float length = 0;
     bool isClockwise, isMoving = false;
+    Quaternion minAngleQuat, maxAngleQuat;
 
     void Start () {
+        minAngleQuat = Quaternion.AngleAxis(mimimumAngle, Vector3.left);
+        maxAngleQuat = Quaternion.AngleAxis(maximumAngle, Vector3.left);
+
+        length = Quaternion.Angle(minAngleQuat, maxAngleQuat);
     }
 
     void Update()
     {
-
         if (isMoving)
         {
-		    rotationToApply = (isClockwise)? - (speed * Time.deltaTime) : + (speed * Time.deltaTime); 
-            currentRotation += rotationToApply;
+            float t = Time.deltaTime * speed * 10 / length;
 
-            if (currentRotation > mimimumAngle && currentRotation  < maximumAngle)
-            {
-                transform.Rotate(rotationToApply, 0, 0);
-            } else
-            {
-                currentRotation -= rotationToApply;
-            }
+            if (isClockwise)
+                transform.rotation = Quaternion.Slerp(transform.rotation, maxAngleQuat, t); 
+            else
+                transform.rotation = Quaternion.Slerp(transform.rotation, minAngleQuat, t); 
         }
     }
 
