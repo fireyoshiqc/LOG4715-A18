@@ -24,14 +24,15 @@ public class BrasierController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (lit) return;
         if (col.gameObject.tag == "torch")
         {
             if (!torch)
                 torch = col.gameObject;
+            FlameController flame = torch.GetComponent<FlameController>();
+            flame.flameLife = flame.maxFlameLife;
 
-            lit = true;
-            LightItUp();
+            if (!lit)
+                LightItUp();
         }
     }
 
@@ -42,6 +43,7 @@ public class BrasierController : MonoBehaviour {
 
     void LightItUp()
     {
+        lit = true;
         GetComponentInChildren<ParticleSystem>().Play();
         Light[] lights = GetComponentsInChildren<Light>();
         foreach (Light light in lights)
@@ -56,6 +58,7 @@ public class BrasierController : MonoBehaviour {
 
     void PutOut()
     {
+        lit = false;
         GetComponentInChildren<ParticleSystem>().Stop();
         Light[] lights = GetComponentsInChildren<Light>();
         foreach (Light light in lights)
