@@ -586,9 +586,10 @@ GameObject:
   - component: {fileID: 65120960575892008}
   - component: {fileID: 135219093091885932}
   - component: {fileID: 114309112097841076}
+  - component: {fileID: 114114353246480760}
   m_Layer: 9
   m_Name: MaleFree1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1110,7 +1111,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1697920611890776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21, y: 0.77, z: 0.92994994}
+  m_LocalPosition: {x: 0.22129261, y: 0.84, z: 1.2908831}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4493725022430940}
@@ -1384,6 +1385,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114114353246480760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1918502160619532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c45f1417ddbe74d868a097c06fc1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 6
+  MercyInvulnerability: 0.5
+  HeartTexture: {fileID: 2800000, guid: e5fdfd07578022d408cfe42b0871ea57, type: 3}
+  HeartSize: 40
 --- !u!114 &114309112097841076
 MonoBehaviour:
   m_ObjectHideFlags: 1
