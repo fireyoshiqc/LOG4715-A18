@@ -189,7 +189,6 @@ GameObject:
   - component: {fileID: 4311136}
   - component: {fileID: 4311134}
   - component: {fileID: 4311133}
-  - component: {fileID: 4311132}
   - component: {fileID: 4311135}
   m_Layer: 0
   m_Name: MaleFree1
@@ -216,18 +215,6 @@ Transform:
   m_Father: {fileID: 79034930}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4311132
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 4311130}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!135 &4311133
 SphereCollider:
   m_ObjectHideFlags: 0

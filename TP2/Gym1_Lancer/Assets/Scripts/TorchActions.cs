@@ -73,13 +73,16 @@ public class TorchActions : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (currentlyHeld != scepter)
+            if (currentlyHeld)
             {
-                Throw();
-            }
-            else
-            {
-                ShootFireBall();
+                if (currentlyHeld != scepter)
+                {
+                    Throw();
+                }
+                else
+                {
+                    ShootFireBall();
+                }
             }
         }
 
@@ -264,7 +267,7 @@ public class TorchActions : MonoBehaviour
         {
             Vector3 toMouse = hit.point - currentlyHeld.transform.position;
             toMouse.x = 0; // Remove the useless depth component
-            fireballClone.velocity = toMouse.normalized * fireBallBaseSpeed * Mathf.Clamp(_currentThrowForce / maxThrowForce, 0.2f , 1);
+            fireballClone.velocity = toMouse.normalized * fireBallBaseSpeed * Mathf.Clamp(_currentThrowForce / maxThrowForce, 0.2f, 1);
         }
         _currentThrowForce = 0.0f;
         _lineRenderer.enabled = false;
