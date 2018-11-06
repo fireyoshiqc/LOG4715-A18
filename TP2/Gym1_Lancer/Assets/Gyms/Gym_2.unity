@@ -1438,6 +1438,11 @@ Prefab:
       propertyPath: scepterMaxFlameCost
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 114488718891116326, guid: 6e9734bcd8652494abc9ef2e52217ef3,
+        type: 2}
+      propertyPath: scepterShootDelay
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e9734bcd8652494abc9ef2e52217ef3, type: 2}
   m_IsPrefabAsset: 0
