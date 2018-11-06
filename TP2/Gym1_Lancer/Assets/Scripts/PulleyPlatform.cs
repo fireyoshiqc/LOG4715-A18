@@ -4,16 +4,17 @@ using System.Collections.Generic;
 public class PulleyPlatform : MonoBehaviour {
 
     [SerializeField]
-    bool isUp = true;
-    [SerializeField]
     float speed = 5;
+    [SerializeField]
+    float upmostPositionOffset;
+    [SerializeField]
+    float downmostPositionOffset;
 
+    Vector3 upmostPosition, downmostPosition;
     public bool isPositive = true;
-
     float currentMovement = 0;
     float length;
-
-    public Vector3 upmostPosition, downmostPosition;
+    bool isUp;
 
     [HideInInspector]
     public float massToApply = 0;
@@ -21,11 +22,13 @@ public class PulleyPlatform : MonoBehaviour {
     public float massOnPlatform;
 
     void Start () {
-        length = Vector3.Distance(upmostPosition, downmostPosition);
+        upmostPosition = transform.position;
+        upmostPosition.y += upmostPositionOffset;
 
-        //initialise the platform to a position
-        if (isUp) transform.position = upmostPosition;
-        else transform.position = downmostPosition;
+        downmostPosition = transform.position;
+        downmostPosition.y -= downmostPositionOffset;
+
+        length = Vector3.Distance(upmostPosition, downmostPosition);
     }
 
     void Update()
@@ -33,8 +36,6 @@ public class PulleyPlatform : MonoBehaviour {
         currentMovement = Time.deltaTime * speed * Mathf.Abs(massToApply) / length;
 
         Move();
-
-        //massOnPlatform = 0;
     }
 
     void Move()
@@ -65,26 +66,22 @@ public class PulleyPlatform : MonoBehaviour {
 
     void MoveDown()
     {
-        transform.position = Vector3.Lerp(transform.position, downmostPosition, currentMovement);   
+        transform.position = Vector3.Lerp(transform.position, downmostPosition, currentMovement);  
     }
         
     void OnCollisionEnter(Collision collision)
     {
         isUp = (transform.position.y - collision.transform.position.y > 0);
-        massOnPlatform = collision.rigidbody.mass;
-        //massOnPlatform = (isUp) ? -collision.rigidbody.mass : collision.rigidbody.mass;
+        massOnPlatform = (isUp) ? 0 :  collision.rigidbody.mass;
     }
 
      private void OnCollisionStay(Collision collision)
     {
-        //isUp = (transform.position.y - collision.transform.position.y > 0);
-        //massOnPlatform += collision.rigidbody.mass;
-        //massOnPlatform += (isUp) ? collision.rigidbody.mass : -collision.rigidbody.mass;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        massOnPlatform = 0;
+        massOnPlatform -= (isUp) ? 0 : collision.rigidbody.mass;
     }
 }
 

@@ -43,8 +43,13 @@ public class BalancingPlatform : MonoBehaviour {
 
     private void OnCollisionStay(Collision collision)
     {
-        isClockwise = 
-            ((transform.position.z - collision.transform.position.z > 0) && (transform.position.y - collision.transform.position.y < 0));
+        if (transform.position.z - collision.transform.position.z > 0)
+        {
+            isClockwise = (transform.position.y - collision.transform.position.y < 0);
+        } else
+        {
+            isClockwise = (transform.position.y - collision.transform.position.y > 0);
+        }
     }
 
     void OnCollisionExit(Collision col)

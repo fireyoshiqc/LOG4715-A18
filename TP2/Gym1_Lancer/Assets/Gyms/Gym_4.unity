@@ -546,7 +546,6 @@ Transform:
   m_LocalScale: {x: 2, y: 0.25, z: 4}
   m_Children:
   - {fileID: 193781509}
-  - {fileID: 740152674}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -711,34 +710,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &740152673
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 740152674}
-  m_Layer: 0
-  m_Name: PivotPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &740152674
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 740152673}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.9200001, z: 0.5175}
-  m_LocalScale: {x: 0.5, y: 4, z: 0.25}
-  m_Children: []
-  m_Father: {fileID: 362577365}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &923124320
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,11 +740,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9515cbac056f8499f7b12f7865a00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUp: 0
   speed: 1
+  upmostPositionOffset: 2
+  downmostPositionOffset: 0
   isPositive: 0
-  upmostPosition: {x: 0, y: 3, z: 3.34}
-  downmostPosition: {x: 0, y: 2, z: 3.34}
   massToApply: 0
   massOnPlatform: 0
 --- !u!23 &923124322
@@ -873,11 +843,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9515cbac056f8499f7b12f7865a00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isUp: 1
   speed: 1
+  upmostPositionOffset: 0
+  downmostPositionOffset: 2
   isPositive: 1
-  upmostPosition: {x: 0, y: 2, z: 0.8}
-  downmostPosition: {x: 0, y: 1, z: 0.8}
   massToApply: 0
   massOnPlatform: 0
 --- !u!23 &1011388588
