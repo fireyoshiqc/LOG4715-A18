@@ -23,7 +23,6 @@ public class Hurtzone : MonoBehaviour {
     float timeSinceEnter = 0f;
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log(other);
         if (!other.CompareTag("Player")) return; //We dont care about touching other objects
         //If player position overlaps the Light radius, do not trigger damage!
         Collider[] colliders = Physics.OverlapSphere(other.transform.position, 0.01f, ImmunityTriggers);
