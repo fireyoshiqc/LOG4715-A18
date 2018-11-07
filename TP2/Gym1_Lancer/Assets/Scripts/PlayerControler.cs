@@ -73,12 +73,18 @@ public class PlayerControler : MonoBehaviour
         //Lock onto plane
         _Rb.position = new Vector3(_DEPTH, _Rb.position.y, _Rb.position.z);
 
+        /*
+        //EXPERIMENTAL PHYSIC-Y MOVEMENT
         float acceleration = 0;
         if (!_Knockedback)
         {
             acceleration = horizontal / 2;
         }
         _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, Mathf.Clamp((_Rb.velocity.z * (1 - SpeedFalloff)) + acceleration, -MoveSpeed, MoveSpeed));
+        */
+
+        if (!_Knockedback)
+            _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, Mathf.Clamp(horizontal, -MoveSpeed, MoveSpeed));
         _Anim.SetFloat("MoveSpeed", Mathf.Abs(_Rb.velocity.z));
     }
 

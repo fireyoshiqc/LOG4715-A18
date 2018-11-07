@@ -1111,7 +1111,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1697920611890776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.22129261, y: 0.84, z: 1.2908831}
+  m_LocalPosition: {x: 0, y: 0.546, z: -5.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4493725022430940}
@@ -1398,7 +1398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 6
   MercyInvulnerability: 0.5
-  HeartTexture: {fileID: 2800000, guid: e5fdfd07578022d408cfe42b0871ea57, type: 3}
+  HeartTexture: {fileID: 2800000, guid: ee2c20c392cd4a642a6f080cdc275ef1, type: 3}
   HeartSize: 40
 --- !u!114 &114309112097841076
 MonoBehaviour:
@@ -1442,9 +1442,9 @@ MonoBehaviour:
   fireball: {fileID: 0}
   maxThrowForce: 500
   throwChargeRate: 350
-  fireBallBaseSpeed: 3
+  fireBallBaseSpeed: 10
   scepterMaxFlameCost: 0.1
-  scepterShootDelay: 500
+  scepterShootDelay: 0.5
   targetLineLengthModifier: 3
   targetLineMaxWidth: 0.05
 --- !u!124 &124033698895787602
@@ -1460,7 +1460,7 @@ SphereCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1918502160619532}
-  m_Material: {fileID: 13400000, guid: a939e149debab7042a04f1c205954cfd, type: 2}
+  m_Material: {fileID: 13400000, guid: eb535d441884b784492d6b42c8ebcadf, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
