@@ -1111,7 +1111,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1697920611890776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.546, z: -5.48}
+  m_LocalPosition: {x: 0.37, y: 2.63, z: -8.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4493725022430940}
@@ -1418,7 +1418,7 @@ MonoBehaviour:
   KnockbackForce: 5
   WhatIsGround:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2304
   CanInteractWith:
     serializedVersion: 2
     m_Bits: 16384
