@@ -7,7 +7,7 @@ public class BrasierController : MonoBehaviour {
     private GameObject torch;
     public bool lit = false;
     public PlayerControler player;
-    public DoorMover LinkedDoor;
+    public Platform_Mover LinkedDoor;
 
 	// Use this for initialization
 	void Start () {

@@ -30,10 +30,26 @@ public class BurnableObjectController : MonoBehaviour
             burnShader = GetComponent<Renderer>().materials[1];
             burnShader.SetFloat("_DissolveAmount", 1.0f);
         }
-        flameEmission = GetComponentsInChildren<ParticleSystem>()[0].emission;
-        flameEmission.enabled = false;
-        ashEmission = GetComponentsInChildren<ParticleSystem>()[1].emission;
-        ashEmission.enabled = false;
+        if (GetComponentsInChildren<ParticleSystem>()[0])
+        {
+          flameEmission = GetComponentsInChildren<ParticleSystem>()[0].emission;
+          flameEmission.enabled = false;
+        }
+        else
+        {
+            this.enabled = false;
+        }
+          
+        if (GetComponentsInChildren<ParticleSystem>()[1])
+        {
+            ashEmission = GetComponentsInChildren<ParticleSystem>()[1].emission;
+            ashEmission.enabled = false;
+        }
+        else
+        {
+            this.enabled = false;
+        }
+        
         lights = GetComponentsInChildren<Light>();
         foreach (Light light in lights)
         {
@@ -156,30 +172,4 @@ public class BurnableObjectController : MonoBehaviour
     private void CreateAshes()
     {
     }
-
-    /*
-    void LightItUp()
-    {
-      GetComponentInChildren<ParticleSystem>().Play();
-      Light[] lights = GetComponentsInChildren<Light>();
-      foreach (Light light in lights)
-      {
-        light.enabled = true;
-      }
-      player.SpawnPos.y = transform.position.y;
-      player.SpawnPos.z = transform.position.z;
-      if (LinkedDoor)
-        LinkedDoor.InteractedUpdate(true);
-    }
-
-    void PutOut()
-    {
-      GetComponentInChildren<ParticleSystem>().Stop();
-      Light[] lights = GetComponentsInChildren<Light>();
-      foreach (Light light in lights)
-      {
-        light.enabled = false;
-      }
-    }
-    */
 }
