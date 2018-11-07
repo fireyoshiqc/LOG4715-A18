@@ -83,6 +83,12 @@ public class FlameController : MonoBehaviour
 
   }
 
+  // Called by objects that "wet" the flame
+  public void ResetRegen()
+  {
+    currentTime = 0.0f;
+  }
+
   private void UpdateLights()
   {
     // https://answers.unity.com/questions/34739/how-to-make-a-light-flicker.html

@@ -1398,7 +1398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 6
   MercyInvulnerability: 0.5
-  HeartTexture: {fileID: 2800000, guid: e5fdfd07578022d408cfe42b0871ea57, type: 3}
+  HeartTexture: {fileID: 2800000, guid: ee2c20c392cd4a642a6f080cdc275ef1, type: 3}
   HeartSize: 40
 --- !u!114 &114309112097841076
 MonoBehaviour:

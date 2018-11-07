@@ -17,6 +17,7 @@ public class WaterfallController : MonoBehaviour {
 		if (torch && torch.flameLife > 0.0f)
     {
       torch.flameLife -= flameReductionStrength * Time.deltaTime;
+      torch.ResetRegen();
     }
 	}
 
