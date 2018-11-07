@@ -437,11 +437,11 @@ Prefab:
     - target: {fileID: 114690944551759178, guid: ebd30a3d8d42aa647b6dea781f0b4750,
         type: 2}
       propertyPath: ActivatedBy.m_Bits
-      value: 2817
+      value: 2561
       objectReference: {fileID: 0}
     - target: {fileID: 4907383953801080, guid: ebd30a3d8d42aa647b6dea781f0b4750, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebd30a3d8d42aa647b6dea781f0b4750, type: 2}
@@ -765,7 +765,7 @@ GameObject:
   - component: {fileID: 1249833744}
   - component: {fileID: 1249833743}
   - component: {fileID: 1249833742}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Large Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -894,7 +894,7 @@ GameObject:
   - component: {fileID: 1363797660}
   - component: {fileID: 1363797659}
   - component: {fileID: 1363797658}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Small Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1196,7 +1196,7 @@ GameObject:
   - component: {fileID: 1759103364}
   - component: {fileID: 1759103363}
   - component: {fileID: 1759103362}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Medium Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
