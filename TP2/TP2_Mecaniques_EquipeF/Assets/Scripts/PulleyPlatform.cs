@@ -6,10 +6,13 @@ public class PulleyPlatform : MonoBehaviour {
     [SerializeField]
     Transform center;
     [SerializeField]
+    [Range(0.1f, 10)]
     float speed = 5;
     [SerializeField]
+    [Range(0, 10)]
     float upmostPositionOffset;
     [SerializeField]
+    [Range(0, 10)]
     float downmostPositionOffset;
 
     Vector3 upmostPosition, downmostPosition;
@@ -36,7 +39,6 @@ public class PulleyPlatform : MonoBehaviour {
     void Update()
     {
         currentMovement = Time.deltaTime * speed * Mathf.Abs(massToApply) / length;
-
         Move();
     }
 
