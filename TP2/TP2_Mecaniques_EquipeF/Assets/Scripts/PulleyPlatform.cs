@@ -4,6 +4,8 @@ using System.Collections.Generic;
 public class PulleyPlatform : MonoBehaviour {
 
     [SerializeField]
+    Transform center;
+    [SerializeField]
     float speed = 5;
     [SerializeField]
     float upmostPositionOffset;
@@ -73,6 +75,9 @@ public class PulleyPlatform : MonoBehaviour {
     {
         isUp = (transform.position.y - collision.transform.position.y > 0);
         massOnPlatform = (isUp) ? 0 :  collision.rigidbody.mass;
+
+        if (collision.gameObject.layer == 0 || collision.gameObject.layer == 9 || collision.gameObject.layer == 11)
+            collision.transform.parent = center;
     }
 
      private void OnCollisionStay(Collision collision)
@@ -82,6 +87,9 @@ public class PulleyPlatform : MonoBehaviour {
     private void OnCollisionExit(Collision collision)
     {
         massOnPlatform -= (isUp) ? 0 : collision.rigidbody.mass;
+        if (massOnPlatform < 0)
+            massOnPlatform = 0;
+        collision.transform.parent = null;
     }
 }
 
