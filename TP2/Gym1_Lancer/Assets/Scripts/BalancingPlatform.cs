@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,7 +12,8 @@ public class BalancingPlatform : MonoBehaviour {
     float speed = 1f;
 
     float length = 0;
-    bool isClockwise, isMoving = false;
+    float lowestPoint = 0;
+    bool isClockwise, isUnder, isMoving = false;
     Quaternion minAngleQuat, maxAngleQuat;
 
     void Start () {
@@ -35,14 +36,22 @@ public class BalancingPlatform : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter(Collision collision)
     {
         isMoving = true;
+        isUnder = (collision.collider.GetType() == typeof(SphereCollider));
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        isClockwise = (transform.position.z - collision.transform.position.z > 0);
+        if (transform.position.z - collision.transform.position.z > 0)
+        {
+            isClockwise = (isUnder) ? true : false;
+        }
+        else
+        {
+            isClockwise = (isUnder) ? false : true;
+        }
     }
 
     void OnCollisionExit(Collision col)
