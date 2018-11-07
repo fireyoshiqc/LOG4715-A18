@@ -74,7 +74,7 @@ public class PlayerHealth : MonoBehaviour {
         for (int i = 0; i < MaxHealth; i++)
         {
             float empty_offset = (i < CurrentHealth ? 1 : 0)/2f;
-            //GUI.DrawTextureWithTexCoords(new Rect(i * HeartSize, 0, HeartSize, HeartSize), HeartTexture, new Rect(0, empty_offset, 1, 1/2f));
+            GUI.DrawTextureWithTexCoords(new Rect(i * HeartSize, 0, HeartSize, HeartSize), HeartTexture, new Rect(0, empty_offset, 1, 1/2f));
         }
        GUI.EndGroup();
     }
