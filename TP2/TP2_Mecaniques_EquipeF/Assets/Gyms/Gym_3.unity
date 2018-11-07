@@ -439,6 +439,10 @@ Prefab:
       propertyPath: ActivatedBy.m_Bits
       value: 2817
       objectReference: {fileID: 0}
+    - target: {fileID: 4907383953801080, guid: ebd30a3d8d42aa647b6dea781f0b4750, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebd30a3d8d42aa647b6dea781f0b4750, type: 2}
   m_IsPrefabAsset: 0
