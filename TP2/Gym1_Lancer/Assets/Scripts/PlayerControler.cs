@@ -73,12 +73,18 @@ public class PlayerControler : MonoBehaviour
         //Lock onto plane
         _Rb.position = new Vector3(_DEPTH, _Rb.position.y, _Rb.position.z);
 
+        /*
+        //EXPERIMENTAL PHYSIC-Y MOVEMENT
         float acceleration = 0;
         if (!_Knockedback)
         {
             acceleration = horizontal / 2;
         }
         _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, Mathf.Clamp((_Rb.velocity.z * (1 - SpeedFalloff)) + acceleration, -MoveSpeed, MoveSpeed));
+        */
+
+        if (!_Knockedback)
+            _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, Mathf.Clamp(horizontal, -MoveSpeed, MoveSpeed));
         _Anim.SetFloat("MoveSpeed", Mathf.Abs(_Rb.velocity.z));
     }
 
@@ -134,13 +140,16 @@ public class PlayerControler : MonoBehaviour
 
     public void Knockback(Vector3 direction)
     {
-        direction = new Vector3(0, /*direction.y*/0, direction.z).normalized;
-        _Rb.velocity = new Vector3(_Rb.velocity.x, 0, _Rb.velocity.z);
-        //Slight Upwards kick
-        _Rb.AddForce(new Vector3(0, 0.5f * KnockbackForce, 0), ForceMode.Impulse);
-        _Rb.AddForce(direction * KnockbackForce, ForceMode.Impulse);
-        _Knockedback = true;
-        StartCoroutine(KnockbackTimer());
+        if (!_Knockedback)
+        {
+            direction = new Vector3(0, /*direction.y*/0, direction.z).normalized;
+            _Rb.velocity = new Vector3(_Rb.velocity.x, 0, _Rb.velocity.z);
+            //Slight Upwards kick
+            _Rb.AddForce(new Vector3(0, 0.5f * KnockbackForce, 0), ForceMode.Impulse);
+            _Rb.AddForce(direction * KnockbackForce, ForceMode.Impulse);
+            _Knockedback = true;
+            StartCoroutine(KnockbackTimer());
+        }
 
     }
 
