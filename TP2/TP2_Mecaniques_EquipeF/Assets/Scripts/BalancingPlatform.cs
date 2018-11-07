@@ -39,12 +39,10 @@ public class BalancingPlatform : MonoBehaviour {
 
             if (isClockwise)
             {
-                float remainingDistance =  Quaternion.Angle(minAngleQuat, maxAngleQuat) * speed / length;
                 transform.rotation = Quaternion.Slerp(transform.rotation, maxAngleQuat, t);
             }
             else
             {
-                float remainingDistance =  Quaternion.Angle(minAngleQuat, maxAngleQuat) * speed / length;
                 transform.rotation = Quaternion.Slerp(transform.rotation, minAngleQuat, t);
             }
                  
