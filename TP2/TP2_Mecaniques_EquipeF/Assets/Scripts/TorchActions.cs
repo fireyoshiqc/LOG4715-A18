@@ -60,7 +60,7 @@ public class TorchActions : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (currentlyHeld && currentlyHeld != scepter || currentlyHeld == scepter && currentScepterDelay < float.Epsilon)
+            if (currentlyHeld && (currentlyHeld != scepter || (currentlyHeld == scepter && currentScepterDelay < float.Epsilon)))
             {
                 DrawThrowTarget();
                 if (_currentThrowForce < maxThrowForce)
