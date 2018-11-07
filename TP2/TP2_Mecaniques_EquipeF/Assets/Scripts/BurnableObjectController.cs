@@ -91,6 +91,8 @@ public class BurnableObjectController : MonoBehaviour
                 }
                 ashEmission.enabled = true;
                 GetComponentsInChildren<ParticleSystem>()[1].Play();
+                if (GetComponent<Rigidbody>())
+                    Destroy(GetComponent<Rigidbody>());
                 Destroy(gameObject, 2.0f);
                 this.enabled = false;
             }
