@@ -21,12 +21,14 @@ public class PlayerControler : MonoBehaviour
     // Valeurs exposées
     [SerializeField]
     float MoveSpeed = 5.0f;
+    //[SerializeField]
+    //[Range(0, 1)]
+    //float SpeedFalloff = 0.1f;
     [SerializeField]
-    [Range(0, 1)]
-    float SpeedFalloff = 0.1f;
-    [SerializeField]
+    [Range(0.0f, 100)]
     float JumpForce = 10f;
     [SerializeField]
+    [Range(0.0f, 10)]
     float KnockbackForce = 5f;
 
     [SerializeField]

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hurtbox : MonoBehaviour {
 
     [SerializeField]
+    [Range(1, 100)]
     int Damage;
 
 	// Use this for initialization
