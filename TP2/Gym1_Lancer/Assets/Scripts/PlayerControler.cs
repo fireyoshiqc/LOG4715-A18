@@ -167,7 +167,7 @@ public class PlayerControler : MonoBehaviour
                 c.gameObject.SendMessage("ActivateInteraction");
             }
             //Also notify Animator
-            _Anim.SetTrigger("Interact");
+            _Anim.SetTrigger("Pickup");
         }
     }
 
