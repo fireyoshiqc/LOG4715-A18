@@ -1004,15 +1004,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1918502160619532, guid: 6e9734bcd8652494abc9ef2e52217ef3, type: 2}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 114114353246480760, guid: 6e9734bcd8652494abc9ef2e52217ef3,
-        type: 2}
-      propertyPath: HeartTexture
-      value: 
-      objectReference: {fileID: 2800000, guid: e5fdfd07578022d408cfe42b0871ea57, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e9734bcd8652494abc9ef2e52217ef3, type: 2}
   m_IsPrefabAsset: 0
