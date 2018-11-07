@@ -60,7 +60,7 @@ public class TorchActions : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (currentlyHeld && currentlyHeld != scepter || currentlyHeld == scepter && currentScepterDelay < float.Epsilon)
+            if (currentlyHeld && (currentlyHeld != scepter || (currentlyHeld == scepter && currentScepterDelay < float.Epsilon)))
             {
                 DrawThrowTarget();
                 if (_currentThrowForce < maxThrowForce)
@@ -219,7 +219,9 @@ public class TorchActions : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
         {
-            Vector3 direction = (hit.point - currentlyHeld.transform.position).normalized;
+            Vector3 direction = (hit.point - currentlyHeld.transform.position);
+            direction.x = 0;
+            direction.Normalize();
 
             float forceRatio = (_currentThrowForce / maxThrowForce);
 

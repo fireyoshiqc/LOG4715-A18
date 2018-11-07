@@ -6,10 +6,13 @@ public class PulleyPlatform : MonoBehaviour {
     [SerializeField]
     Transform center;
     [SerializeField]
+    [Range(0.1f, 10)]
     float speed = 5;
     [SerializeField]
+    [Range(0, 10)]
     float upmostPositionOffset;
     [SerializeField]
+    [Range(0, 10)]
     float downmostPositionOffset;
 
     Vector3 upmostPosition, downmostPosition;
@@ -36,7 +39,6 @@ public class PulleyPlatform : MonoBehaviour {
     void Update()
     {
         currentMovement = Time.deltaTime * speed * Mathf.Abs(massToApply) / length;
-
         Move();
     }
 
@@ -76,7 +78,7 @@ public class PulleyPlatform : MonoBehaviour {
         isUp = (transform.position.y - collision.transform.position.y > 0);
         massOnPlatform = (isUp) ? 0 :  collision.rigidbody.mass;
 
-        if (collision.gameObject.layer == 0 || collision.gameObject.layer == 9 || collision.gameObject.layer == 11)
+        if (collision.gameObject.layer == 0 || collision.gameObject.layer == 8 || collision.gameObject.layer == 9 || collision.gameObject.layer == 11)
             collision.transform.parent = center;
     }
 

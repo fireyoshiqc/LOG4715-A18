@@ -8,6 +8,7 @@ public class Hurtzone : MonoBehaviour {
     LayerMask ImmunityTriggers;
 
     [SerializeField]
+    [Range(0.1f, 5)]
     float DamagePerSecond = 0.5f;
 
 	// Use this for initialization

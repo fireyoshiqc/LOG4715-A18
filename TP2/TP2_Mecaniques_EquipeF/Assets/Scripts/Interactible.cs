@@ -26,6 +26,7 @@ public class Interactible : MonoBehaviour {
     [SerializeField]
     SwitchType switchType;
     [SerializeField]
+    [Range(0.1f, 100)]
     float time;
     [SerializeField]
     GameObject[] target;
