@@ -156,30 +156,4 @@ public class BurnableObjectController : MonoBehaviour
     private void CreateAshes()
     {
     }
-
-    /*
-    void LightItUp()
-    {
-      GetComponentInChildren<ParticleSystem>().Play();
-      Light[] lights = GetComponentsInChildren<Light>();
-      foreach (Light light in lights)
-      {
-        light.enabled = true;
-      }
-      player.SpawnPos.y = transform.position.y;
-      player.SpawnPos.z = transform.position.z;
-      if (LinkedDoor)
-        LinkedDoor.InteractedUpdate(true);
-    }
-
-    void PutOut()
-    {
-      GetComponentInChildren<ParticleSystem>().Stop();
-      Light[] lights = GetComponentsInChildren<Light>();
-      foreach (Light light in lights)
-      {
-        light.enabled = false;
-      }
-    }
-    */
 }
