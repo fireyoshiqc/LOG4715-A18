@@ -78,7 +78,7 @@ public class PulleyPlatform : MonoBehaviour {
         isUp = (transform.position.y - collision.transform.position.y > 0);
         massOnPlatform = (isUp) ? 0 :  collision.rigidbody.mass;
 
-        if (collision.gameObject.layer == 0 || collision.gameObject.layer == 9 || collision.gameObject.layer == 11)
+        if (collision.gameObject.layer == 0 || collision.gameObject.layer == 8 || collision.gameObject.layer == 9 || collision.gameObject.layer == 11)
             collision.transform.parent = center;
     }
 
