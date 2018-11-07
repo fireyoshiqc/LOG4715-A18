@@ -397,6 +397,14 @@ Prefab:
       propertyPath: flameReductionStrength
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1082735265421884, guid: 2ad1c46bc4dd5444d9ef159c3ab30d15, type: 2}
+      propertyPath: m_TagString
+      value: water
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082735265421884, guid: 2ad1c46bc4dd5444d9ef159c3ab30d15, type: 2}
+      propertyPath: m_Layer
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad1c46bc4dd5444d9ef159c3ab30d15, type: 2}
   m_IsPrefabAsset: 0
@@ -988,6 +996,53 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1716913714}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1721554315
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -22.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.0000004054158
+      objectReference: {fileID: 0}
+    - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.000000081083165
+      objectReference: {fileID: 0}
+    - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 888bb6d2a38109648a860ce0760f7cf8, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!4 &1721554316 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4292412266500464, guid: 888bb6d2a38109648a860ce0760f7cf8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1721554315}
 --- !u!1001 &1726594565
 Prefab:
   m_ObjectHideFlags: 0
@@ -1035,6 +1090,21 @@ Prefab:
         type: 2}
       propertyPath: m_Constraints
       value: 114
+      objectReference: {fileID: 0}
+    - target: {fileID: 114488718891116326, guid: 6e9734bcd8652494abc9ef2e52217ef3,
+        type: 2}
+      propertyPath: fireball
+      value: 
+      objectReference: {fileID: 1721554316}
+    - target: {fileID: 114488718891116326, guid: 6e9734bcd8652494abc9ef2e52217ef3,
+        type: 2}
+      propertyPath: scepterShootDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114488718891116326, guid: 6e9734bcd8652494abc9ef2e52217ef3,
+        type: 2}
+      propertyPath: fireBallBaseSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e9734bcd8652494abc9ef2e52217ef3, type: 2}
