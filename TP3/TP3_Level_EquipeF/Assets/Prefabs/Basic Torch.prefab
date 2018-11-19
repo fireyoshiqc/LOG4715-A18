@@ -57,7 +57,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4117275427215668}
   - component: {fileID: 108247078800109566}
-  m_Layer: 10
+  - component: {fileID: 135140223935719594}
+  m_Layer: 16
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1204385947176676}
   m_LocalRotation: {x: -1, y: 0.00000028088027, z: 0.0000001872535, w: -5.2595816e-14}
-  m_LocalPosition: {x: -0, y: 1.88, z: -6.06}
+  m_LocalPosition: {x: -0, y: 0.63, z: -0.06}
   m_LocalScale: {x: 0.050000023, y: 0.20000021, z: 0.05000007}
   m_Children:
   - {fileID: 4288314608625870}
@@ -215,6 +216,20 @@ MonoBehaviour:
   timeBeforeRegen: 5
   regenRate: 0.5
   lightSmoothingFactor: 10
+  lightCollider: {fileID: 135140223935719594}
+  flameLifetoRadiusRatio: 1
+--- !u!135 &135140223935719594
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327089556986824}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136188290648782424
 CapsuleCollider:
   m_ObjectHideFlags: 1
