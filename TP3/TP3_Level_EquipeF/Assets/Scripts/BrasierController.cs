@@ -49,8 +49,6 @@ public class BrasierController : MonoBehaviour {
         foreach (Light light in lights)
         {
             light.enabled = true;
-            Collider c = light.GetComponent<Collider>();
-            if (c != null) { c.enabled = true; }
         }
         player.SpawnPos.y = transform.position.y;
         player.SpawnPos.z = transform.position.z;
@@ -66,8 +64,6 @@ public class BrasierController : MonoBehaviour {
         foreach (Light light in lights)
         {
             light.enabled = false;
-            Collider c = light.GetComponent<Collider>();
-            if (c != null) { c.enabled = false; }
         }
     }
 }
