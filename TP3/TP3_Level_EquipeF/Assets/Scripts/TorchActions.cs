@@ -184,7 +184,7 @@ public class TorchActions : MonoBehaviour
         }
     }
 
-    private void Drop()
+    public void Drop()
     {
         if (!currentlyHeld)
             return;

@@ -9,6 +9,8 @@ public class BrasierController : MonoBehaviour {
     public PlayerControler player;
     public Platform_Mover LinkedDoor;
 
+    public RespawnController Resetter;
+
 	// Use this for initialization
 	void Start () {
         if (!lit)
@@ -32,7 +34,10 @@ public class BrasierController : MonoBehaviour {
             flame.flameLife = flame.maxFlameLife;
 
             if (!lit)
+            {
                 LightItUp();
+                Resetter.TriggerCheckpoint(torch);
+            }
         }
     }
 
