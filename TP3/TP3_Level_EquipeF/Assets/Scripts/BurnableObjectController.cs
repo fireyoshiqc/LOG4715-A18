@@ -4,24 +4,29 @@ using UnityEngine;
 
 public class BurnableObjectController : MonoBehaviour
 {
-
-    public bool lit = false;
+    public bool startLit = false;
+    private bool lit = false;
     public float burnTime = 10.0f;
+    private float initialBurnTime;
     public int lightSmoothingFactor = 10; // Smoothness of light flickering
     public float lightIntensity = 5.0f;
     private Color startColor;
     private Color delta;
     private Material burnShader;
-    private float initialBurnTime;
     private FlameController torch;
     private ParticleSystem.EmissionModule flameEmission;
     private ParticleSystem.EmissionModule ashEmission;
     private Light[] lights;
     private float[] lightSmoothing;
 
+    private int originalLayer;
+
     // Use this for initialization
     void Start()
     {
+        originalLayer = gameObject.layer;
+        lit = startLit;
+
         startColor = GetComponent<Renderer>().materials[0].color;
         initialBurnTime = burnTime;
         delta = startColor / burnTime;
@@ -82,19 +87,21 @@ public class BurnableObjectController : MonoBehaviour
             {
                 light.enabled = false;
             }
-            if (lit)
+            if (lit && gameObject.layer == originalLayer)
             {
                 GetComponent<Renderer>().enabled = false;
-                foreach (Collider collider in GetComponents<Collider>())
-                {
-                    collider.enabled = false;
-                }
+                //foreach (Collider collider in GetComponents<Collider>())
+                //{
+                //    collider.enabled = false;
+                //}
                 ashEmission.enabled = true;
                 GetComponentsInChildren<ParticleSystem>()[1].Play();
-                if (GetComponent<Rigidbody>())
-                    Destroy(GetComponent<Rigidbody>());
-                Destroy(gameObject, 2.0f);
-                this.enabled = false;
+                StartCoroutine(StopAshes(2.0f));
+                //if (GetComponent<Rigidbody>())
+                //Destroy(GetComponent<Rigidbody>());
+                //Destroy(gameObject, 2.0f);
+                
+                gameObject.layer = LayerMask.NameToLayer("Disabled");
             }
         }
     }
@@ -170,8 +177,33 @@ public class BurnableObjectController : MonoBehaviour
             light.intensity = sum / lightSmoothing.Length;
         }
     }
-
-    private void CreateAshes()
+    
+    public void ResetObject()
     {
+        GetComponent<Renderer>().enabled = true;
+        gameObject.layer = originalLayer;
+
+        GetComponent<Renderer>().materials[0].color = startColor;
+        lit = startLit;
+        burnTime = initialBurnTime;
+
+        if (burnShader != null)
+            burnShader.SetFloat("_DissolveAmount", 1.0f);
+
+        if (torch != null)
+            torch = null;
+
+        flameEmission.enabled = false;
+        ashEmission.enabled = false;
+
+        foreach (Light light in lights)
+            light.enabled = false;
+    }
+    
+    IEnumerator StopAshes(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GetComponentsInChildren<ParticleSystem>()[1].Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+        ashEmission.enabled = false;
     }
 }

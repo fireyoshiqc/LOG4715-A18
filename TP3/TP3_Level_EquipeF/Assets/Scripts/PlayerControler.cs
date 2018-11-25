@@ -179,9 +179,10 @@ public class PlayerControler : MonoBehaviour
             Respawn();
     }
 
-    void Respawn()
+    public void Respawn()
     {
         transform.position = SpawnPos;
+        _Rb.velocity = new Vector3(0,0,0);
     }
 
     IEnumerator KnockbackTimer()

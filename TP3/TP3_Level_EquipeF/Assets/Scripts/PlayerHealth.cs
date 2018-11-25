@@ -14,6 +14,9 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     Texture HeartTexture;
 
+    PlayerControler PC;
+    public RespawnController Resetter;
+
     bool mercy;
 
     int hp;
@@ -28,16 +31,18 @@ public class PlayerHealth : MonoBehaviour {
     {
         mercy = false;
         CurrentHealth = MaxHealth;
+        PC = gameObject.GetComponent<PlayerControler>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		if (CurrentHealth == 0)
+		if (CurrentHealth == 0 || Input.GetKeyDown(KeyCode.R))
         {
             //Death?
-            Debug.Log("You are dead. Not big surprise.");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            PC.Respawn();
+            CurrentHealth = MaxHealth;
+            Resetter.ResetPositions();
         }
 	}
 

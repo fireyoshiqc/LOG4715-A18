@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 114488718891116326}
   m_Layer: 12
   m_Name: TorchPickup
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1111,7 +1111,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1697920611890776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.37, y: 2.63, z: -8.22}
+  m_LocalPosition: {x: 0, y: 1.55, z: -1.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4493725022430940}
@@ -1399,6 +1399,7 @@ MonoBehaviour:
   MaxHealth: 6
   MercyInvulnerability: 0.5
   HeartTexture: {fileID: 2800000, guid: ee2c20c392cd4a642a6f080cdc275ef1, type: 3}
+  Resetter: {fileID: 0}
   HeartSize: 40
 --- !u!114 &114309112097841076
 MonoBehaviour:
@@ -1413,12 +1414,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnPos: {x: 0, y: 0, z: 0}
   MoveSpeed: 4
-  SpeedFalloff: 0.1
   JumpForce: 7
   KnockbackForce: 5
   WhatIsGround:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 2305
   CanInteractWith:
     serializedVersion: 2
     m_Bits: 16384
