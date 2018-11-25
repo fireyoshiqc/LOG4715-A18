@@ -183,6 +183,9 @@ public class PlayerControler : MonoBehaviour
     {
         transform.position = SpawnPos;
         _Rb.velocity = new Vector3(0,0,0);
+        _Grounded = true;
+        _Knockedback = false;
+        _Anim.SetBool("Grounded", _Grounded);
     }
 
     IEnumerator KnockbackTimer()
