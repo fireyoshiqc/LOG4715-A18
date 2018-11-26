@@ -29,10 +29,14 @@ public class BrasierController : MonoBehaviour {
             if (!torch)
                 torch = col.gameObject;
             FlameController flame = torch.GetComponent<FlameController>();
-            flame.flameLife = flame.maxFlameLife;
-
-            if (!lit)
+            if (flame.flameLife > 0.0f && !lit)
+            {
                 LightItUp();
+            }
+            else if (lit)
+            {
+                flame.flameLife = flame.maxFlameLife;
+            }
         }
     }
 

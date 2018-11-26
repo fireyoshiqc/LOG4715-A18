@@ -73,7 +73,7 @@ Material:
     - _DstBlend: 0
     - _Edges: 0.1
     - _GlossMapScale: 1
-    - _Glossiness: 0.72
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _Level: 0.1
     - _Metallic: 0
@@ -86,7 +86,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _DissolveColor: {r: 1, g: 0.49349713, b: 0, a: 1}
     - _EdgeColour1: {r: 1, g: 1, b: 1, a: 1}
     - _EdgeColour2: {r: 1, g: 1, b: 1, a: 1}
