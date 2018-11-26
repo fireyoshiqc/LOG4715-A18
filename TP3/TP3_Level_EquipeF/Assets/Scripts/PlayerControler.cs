@@ -6,8 +6,6 @@ public class PlayerControler : MonoBehaviour
 {
     // Déclaration des constantes
     private static readonly Vector3 FlipRotation = new Vector3(0, 180, 0);
-    private static readonly Vector3 CameraPosition = new Vector3(10, 1, 0);
-    private static readonly Vector3 InverseCameraPosition = new Vector3(-10, 1, 0);
     public Vector3 SpawnPos;
 
     // Déclaration des variables
@@ -16,7 +14,6 @@ public class PlayerControler : MonoBehaviour
     bool _Knockedback { get; set; }
     Animator _Anim { get; set; }
     Rigidbody _Rb { get; set; }
-    Camera _MainCamera { get; set; }
 
     // Valeurs exposées
     [SerializeField]
@@ -46,8 +43,7 @@ public class PlayerControler : MonoBehaviour
     {
         _Anim = GetComponent<Animator>();
         _Rb = GetComponent<Rigidbody>();
-        _DEPTH = _Rb.position.x;
-        _MainCamera = Camera.main;
+        _DEPTH = _Rb.position.z;
     }
 
     // Utile pour régler des valeurs aux objets
@@ -73,7 +69,7 @@ public class PlayerControler : MonoBehaviour
     void HorizontalMove(float horizontal)
     {
         //Lock onto plane
-        _Rb.position = new Vector3(_DEPTH, _Rb.position.y, _Rb.position.z);
+        _Rb.position = new Vector3(_Rb.position.x, _Rb.position.y, _DEPTH);
 
         /*
         //EXPERIMENTAL PHYSIC-Y MOVEMENT
@@ -86,8 +82,8 @@ public class PlayerControler : MonoBehaviour
         */
 
         if (!_Knockedback)
-            _Rb.velocity = new Vector3(_Rb.velocity.x, _Rb.velocity.y, Mathf.Clamp(horizontal, -MoveSpeed, MoveSpeed));
-        _Anim.SetFloat("MoveSpeed", Mathf.Abs(_Rb.velocity.z));
+            _Rb.velocity = new Vector3(Mathf.Clamp(horizontal, -MoveSpeed, MoveSpeed), _Rb.velocity.y, _Rb.velocity.z);
+        _Anim.SetFloat("MoveSpeed", Mathf.Abs(_Rb.velocity.x));
     }
 
     // Gère le saut du personnage, ainsi que son animation de saut
@@ -112,15 +108,11 @@ public class PlayerControler : MonoBehaviour
         {
             _Flipped = true;
             transform.Rotate(FlipRotation);
-            _MainCamera.transform.Rotate(-FlipRotation);
-            _MainCamera.transform.localPosition = InverseCameraPosition;
         }
         else if (horizontal > 0 && _Flipped)
         {
             _Flipped = false;
             transform.Rotate(-FlipRotation);
-            _MainCamera.transform.Rotate(FlipRotation);
-            _MainCamera.transform.localPosition = CameraPosition;
         }
     }
 
