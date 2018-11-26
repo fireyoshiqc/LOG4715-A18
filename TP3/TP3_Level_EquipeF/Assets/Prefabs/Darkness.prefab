@@ -36,13 +36,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1964883988356934}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.27, y: 4.05, z: 10.44}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 35.59, y: 4, z: 0}
+  m_LocalScale: {x: 2, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &65941724980999058
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -53,8 +53,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.32, y: 9.42, z: 8.91}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.2700001, y: 9.0199995, z: 10.610001}
+  m_Center: {x: -0.07500005, y: -0.20000029, z: -0.1500001}
 --- !u!114 &114866259589677104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -69,7 +69,7 @@ MonoBehaviour:
   ImmunityTriggers:
     serializedVersion: 2
     m_Bits: 65536
-  DamagePerSecond: 0.5
+  DamagePerSecond: 2
 --- !u!198 &198599987581433754
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -634,7 +634,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 5000
+    maxNumParticles: 1000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -701,7 +701,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 0.81, y: 9, z: 9}
+    m_Scale: {x: 1.2324007, y: 9, z: 10.287113}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
