@@ -8,7 +8,7 @@ public class Hurtzone : MonoBehaviour {
     LayerMask ImmunityTriggers;
 
     [SerializeField]
-    [Range(0.1f, 5)]
+    [Range(0.1f, 10.0f)]
     float DamagePerSecond = 0.5f;
 
 	// Use this for initialization
@@ -33,9 +33,16 @@ public class Hurtzone : MonoBehaviour {
         }
         else
         {
-            if (timeSinceEnter > 1 / DamagePerSecond)
+            if (timeSinceEnter > 1.0f / DamagePerSecond)
             {
-                other.gameObject.SendMessage("Hurt", 1, SendMessageOptions.DontRequireReceiver);
+                PlayerHealth health = other.GetComponent<PlayerHealth>();
+                if (health)
+                {
+                    float oldMercy = health.MercyInvulnerability;
+                    health.MercyInvulnerability = 0.0f;
+                    health.Hurt(1);
+                    health.MercyInvulnerability = oldMercy;
+                }
                 timeSinceEnter = 0f;
             }
             timeSinceEnter += Time.deltaTime;

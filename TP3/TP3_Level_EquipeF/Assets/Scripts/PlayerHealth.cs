@@ -8,9 +8,8 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     [Range(1, 20)]
     int MaxHealth = 5;
-    [SerializeField]
-    [Range(0, 2)]
-    float MercyInvulnerability = 0;
+    [Range(0f, 2f)]
+    public float MercyInvulnerability = 0;
     [SerializeField]
     Texture HeartTexture;
 
