@@ -220,7 +220,7 @@ public class TorchActions : MonoBehaviour
         if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
         {
             Vector3 direction = (hit.point - currentlyHeld.transform.position);
-            direction.x = 0;
+            direction.z = 0;
             direction.Normalize();
 
             float forceRatio = (_currentThrowForce / maxThrowForce);
@@ -254,7 +254,7 @@ public class TorchActions : MonoBehaviour
             currentlyHeld.GetComponent<Rigidbody>().isKinematic = false;
             guide.GetChild(0).parent = null;
             Vector3 toMouse = hit.point - currentlyHeld.transform.position;
-            toMouse.x = 0; // Remove the useless depth component
+            toMouse.z = 0; // Remove the useless depth component
             currentlyHeld.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce);
             currentlyHeld.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0, 1, 0), (toMouse.normalized * _currentThrowForce)));
             currentlyHeld = null;

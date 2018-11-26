@@ -14,7 +14,8 @@ public class MainMenuController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        AudioListener.volume = PlayerPrefs.GetFloat("volume");
+        AudioListener.volume = PlayerPrefs.HasKey("volume") ? PlayerPrefs.GetFloat("volume") : 1.0f;
+
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0.0f;
         elapsedTime = 0.0f;
