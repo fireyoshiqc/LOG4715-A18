@@ -36,6 +36,8 @@ public class PlayerControler : MonoBehaviour
     [SerializeField]
     BoxCollider InteractZone;
 
+    TorchActions torchAction;
+
     float _DEPTH;
 
     // Awake se produit avait le Start. Il peut être bien de régler les références dans cette section.
@@ -44,6 +46,7 @@ public class PlayerControler : MonoBehaviour
         _Anim = GetComponent<Animator>();
         _Rb = GetComponent<Rigidbody>();
         _DEPTH = _Rb.position.z;
+        torchAction = GetComponentInChildren<TorchActions>();
     }
 
     // Utile pour régler des valeurs aux objets
@@ -152,17 +155,29 @@ public class PlayerControler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            //Test for interactable
-            Collider[] hitColliders = Physics.OverlapBox(InteractZone.transform.position + InteractZone.center, InteractZone.size / 2, Quaternion.identity, CanInteractWith);
-            //if found activate it
-            foreach (Collider c in hitColliders)
+            bool interacted = false;
+            if (!torchAction.currentlyHeld)
+                interacted = torchAction.Pickup();
+
+            if (!interacted)
             {
-                //All component attached to the gameObject that have an "ActivateInteraction" function
-                //will react to the message and call the function.
-                c.gameObject.SendMessage("ActivateInteraction");
+                //Test for interactable
+                Collider[] hitColliders = Physics.OverlapBox(InteractZone.transform.position + InteractZone.center, InteractZone.size / 2, Quaternion.identity, CanInteractWith);
+                //if found activate it
+                foreach (Collider c in hitColliders)
+                {
+                    interacted = true;
+                    //All component attached to the gameObject that have an "ActivateInteraction" function
+                    //will react to the message and call the function.
+                    c.gameObject.SendMessage("ActivateInteraction");
+                }
             }
-            //Also notify Animator
-            _Anim.SetTrigger("Pickup");
+
+            //Still nothing? attempt drop
+            if (!interacted)
+                torchAction.Drop();
+            else //Also notify Animator
+                _Anim.SetTrigger("Pickup");
         }
     }
 

@@ -41,13 +41,13 @@ public class TorchActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        /*if (Input.GetKeyDown(KeyCode.E))
         {
             if (currentlyHeld)
                 Drop();
             else
                 Pickup();
-        }
+        }*/
 
         if (currentlyHeld)
         {
@@ -151,10 +151,10 @@ public class TorchActions : MonoBehaviour
         }
     }
 
-    private void Pickup()
+    public bool Pickup()
     {
         if (!(torch || lantern || scepter))
-            return;
+            return false; //Did nothing
         if (torch)
         {
             torch.GetComponent<Rigidbody>().isKinematic = true;
@@ -182,6 +182,7 @@ public class TorchActions : MonoBehaviour
             scepter.transform.position = guide.position + new Vector3(0f, 1f, 0f);
             currentlyHeld = scepter;
         }
+        return true;
     }
 
     public void Drop()
