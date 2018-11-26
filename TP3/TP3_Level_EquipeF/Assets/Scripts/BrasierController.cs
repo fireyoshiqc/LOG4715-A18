@@ -58,7 +58,7 @@ public class BrasierController : MonoBehaviour {
             light.enabled = true;
         }
         player.SpawnPos.y = transform.position.y;
-        player.SpawnPos.z = transform.position.z;
+        player.SpawnPos.x = transform.position.x;
         if(LinkedDoor)
             LinkedDoor.InteractedUpdate(true);
     }

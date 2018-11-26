@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -326,6 +326,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74fb1dd33819b2f4c88e0fe30ef51436, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &35154864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114626213584141176, guid: ff26c7818c7714d4a8d9b414ce5a2759,
+    type: 2}
+  m_PrefabInternal: {fileID: 1815302982}
+  m_Script: {fileID: 11500000, guid: 2d614991afca9a745bc74f01103398fe, type: 3}
 --- !u!1001 &46320246
 Prefab:
   m_ObjectHideFlags: 0
@@ -2294,6 +2300,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b2f96746c6005c64888263f64272a556,
     type: 2}
   m_PrefabInternal: {fileID: 468442692}
+--- !u!1 &507068014 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1204385947176676, guid: 52783d1402a21bc47abbae5fceddb1e5,
+    type: 2}
+  m_PrefabInternal: {fileID: 2045270845}
 --- !u!4 &523968956 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 91d652779ec7140488b6b8e360497937,
@@ -3331,6 +3342,11 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 626022546}
+    - target: {fileID: 114558834215126648, guid: 888e122b9e6aa0e47ac34ff04fa8323b,
+        type: 2}
+      propertyPath: Resetter
+      value: 
+      objectReference: {fileID: 1091016241}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 888e122b9e6aa0e47ac34ff04fa8323b, type: 2}
   m_IsPrefabAsset: 0
@@ -4560,6 +4576,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: b2f96746c6005c64888263f64272a556,
     type: 2}
   m_PrefabInternal: {fileID: 1087199892}
+--- !u!1 &1091016240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1091016242}
+  - component: {fileID: 1091016241}
+  m_Layer: 0
+  m_Name: RespawnController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1091016241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1091016240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec7c9a3b48866341a360752822ca037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentTorch: {fileID: 2052514891}
+  ResetList:
+  - {fileID: 507068014}
+  - {fileID: 2052514891}
+  TA: {fileID: 35154864}
+--- !u!4 &1091016242
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1091016240}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21.486979, y: 4.0647316, z: -0.81566334}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1098843135 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 91d652779ec7140488b6b8e360497937,
@@ -6598,6 +6659,11 @@ Prefab:
       propertyPath: lit
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114558834215126648, guid: 888e122b9e6aa0e47ac34ff04fa8323b,
+        type: 2}
+      propertyPath: Resetter
+      value: 
+      objectReference: {fileID: 1091016241}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 888e122b9e6aa0e47ac34ff04fa8323b, type: 2}
   m_IsPrefabAsset: 0
@@ -6818,6 +6884,11 @@ Prefab:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 114555648935279538, guid: ff26c7818c7714d4a8d9b414ce5a2759,
+        type: 2}
+      propertyPath: Resetter
+      value: 
+      objectReference: {fileID: 1091016241}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff26c7818c7714d4a8d9b414ce5a2759, type: 2}
   m_IsPrefabAsset: 0
@@ -7718,6 +7789,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10f6c197dbc5b3d4bb207a1bd7921eba, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &2052514891 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1204385947176676, guid: 52783d1402a21bc47abbae5fceddb1e5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1217114421}
 --- !u!1001 &2061212026
 Prefab:
   m_ObjectHideFlags: 0
@@ -7906,6 +7982,11 @@ Prefab:
       propertyPath: m_Name
       value: Braisier (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114558834215126648, guid: 888e122b9e6aa0e47ac34ff04fa8323b,
+        type: 2}
+      propertyPath: Resetter
+      value: 
+      objectReference: {fileID: 1091016241}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 888e122b9e6aa0e47ac34ff04fa8323b, type: 2}
   m_IsPrefabAsset: 0

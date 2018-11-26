@@ -708,6 +708,11 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 638082341}
+    - target: {fileID: 114558834215126648, guid: 888e122b9e6aa0e47ac34ff04fa8323b,
+        type: 2}
+      propertyPath: Resetter
+      value: 
+      objectReference: {fileID: 818188585}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 888e122b9e6aa0e47ac34ff04fa8323b, type: 2}
   m_IsPrefabAsset: 0
@@ -1097,10 +1102,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec7c9a3b48866341a360752822ca037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentTorch: {fileID: 0}
+  CurrentTorch: {fileID: 1558674100}
   ResetList:
   - {fileID: 1231550660}
   - {fileID: 1466977112}
+  TA: {fileID: 1716863567}
 --- !u!4 &818188586
 Transform:
   m_ObjectHideFlags: 0
@@ -1604,6 +1610,11 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114558834215126648, guid: 888e122b9e6aa0e47ac34ff04fa8323b,
+        type: 2}
+      propertyPath: Resetter
+      value: 
+      objectReference: {fileID: 818188585}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 888e122b9e6aa0e47ac34ff04fa8323b, type: 2}
   m_IsPrefabAsset: 0
@@ -2229,7 +2240,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 0.95, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1428944185
 MeshRenderer:
@@ -2410,6 +2421,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4000259113341822, guid: 888e122b9e6aa0e47ac34ff04fa8323b,
     type: 2}
   m_PrefabInternal: {fileID: 1063498240}
+--- !u!1 &1558674100 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1204385947176676, guid: 52783d1402a21bc47abbae5fceddb1e5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1736902834}
 --- !u!1001 &1655837710
 Prefab:
   m_ObjectHideFlags: 0
@@ -2542,6 +2558,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1692166238}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1716863567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114488718891116326, guid: 6e9734bcd8652494abc9ef2e52217ef3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1655837710}
+  m_Script: {fileID: 11500000, guid: 2d614991afca9a745bc74f01103398fe, type: 3}
 --- !u!1001 &1736902834
 Prefab:
   m_ObjectHideFlags: 0
@@ -2886,6 +2908,11 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114558834215126648, guid: 888e122b9e6aa0e47ac34ff04fa8323b,
+        type: 2}
+      propertyPath: Resetter
+      value: 
+      objectReference: {fileID: 818188585}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 888e122b9e6aa0e47ac34ff04fa8323b, type: 2}
   m_IsPrefabAsset: 0
