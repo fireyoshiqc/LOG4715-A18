@@ -89,13 +89,22 @@ public class PlayerControler : MonoBehaviour
         _Anim.SetFloat("MoveSpeed", Mathf.Abs(_Rb.velocity.x));
     }
 
+    private bool isGrounded()
+    {
+        CapsuleCollider coll = GetComponent<CapsuleCollider>();
+        RaycastHit hit;
+        return Physics.SphereCast(transform.position + new Vector3(0, coll.radius, 0), 3 * coll.radius / 4, -transform.up, out hit, 0.25f);
+    }
+
     // Gère le saut du personnage, ainsi que son animation de saut
     void CheckJump()
     {
-        if (_Grounded)
+        if (Input.GetButtonDown("Jump"))
         {
-            if (Input.GetButtonDown("Jump"))
+            if (isGrounded())
             {
+                //Debug.DrawLine(transform.position + new Vector3(0, coll.radius , 0), transform.position + new Vector3(0, coll.radius - 0.2f - 3 * coll.radius / 4, 0), Color.white, 25);
+                //Debug.DrawLine(hit.transform.position, transform.position, Color.blue, 60);
                 _Rb.velocity = new Vector3(_Rb.velocity.x, 0.0f, _Rb.velocity.z);
                 _Rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
                 _Grounded = false;
@@ -128,7 +137,7 @@ public class PlayerControler : MonoBehaviour
             return;
 
         // Évite une collision avec le plafond
-        if (coll.relativeVelocity.y > 0)
+        if (isGrounded())
         {
             _Grounded = true;
             _Knockedback = false;
