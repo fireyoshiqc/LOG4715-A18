@@ -14,10 +14,9 @@ public class Interactible : MonoBehaviour {
         set
         {
             status = value;
-            foreach (GameObject t in target)
+            foreach (Platform_Mover t in target)
             {
-                if (t)
-                    t.SendMessage("InteractedUpdate", status, SendMessageOptions.DontRequireReceiver);
+                t.InteractedUpdate(status);
             }
         }
     }
@@ -29,7 +28,7 @@ public class Interactible : MonoBehaviour {
     [Range(0.1f, 100)]
     float time;
     [SerializeField]
-    GameObject[] target;
+    Platform_Mover[] target;
 
 	// Use this for initialization
 	void Start () {

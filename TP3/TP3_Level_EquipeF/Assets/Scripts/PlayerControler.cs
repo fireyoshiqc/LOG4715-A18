@@ -93,6 +93,7 @@ public class PlayerControler : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
+                _Rb.velocity = new Vector3(_Rb.velocity.x, 0.0f, _Rb.velocity.z);
                 _Rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
                 _Grounded = false;
                 _Anim.SetBool("Grounded", false);
