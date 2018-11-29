@@ -7,7 +7,7 @@ public class PressureButton : MonoBehaviour {
     [SerializeField]
     LayerMask ActivatedBy;
     [SerializeField]
-    Platform_Mover[] target;
+    PlatformMover[] target;
 
     bool status = false;
     bool Status
@@ -16,7 +16,7 @@ public class PressureButton : MonoBehaviour {
         set
         {
             status = value;
-            foreach (Platform_Mover t in target)
+            foreach (PlatformMover t in target)
             {
                 if (t)
                     t.InteractedUpdate(status);

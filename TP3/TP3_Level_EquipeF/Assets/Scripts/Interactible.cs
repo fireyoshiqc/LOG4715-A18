@@ -14,7 +14,7 @@ public class Interactible : MonoBehaviour {
         set
         {
             status = value;
-            foreach (Platform_Mover t in target)
+            foreach (PlatformMover t in target)
             {
                 t.InteractedUpdate(status);
             }
@@ -28,7 +28,7 @@ public class Interactible : MonoBehaviour {
     [Range(0.1f, 100)]
     float time;
     [SerializeField]
-    Platform_Mover[] target;
+    PlatformMover[] target;
 
 	// Use this for initialization
 	void Start () {

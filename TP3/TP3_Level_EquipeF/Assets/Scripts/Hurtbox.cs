@@ -21,7 +21,7 @@ public class Hurtbox : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         PlayerHealth health = collision.collider.GetComponent<PlayerHealth>();
-        PlayerControler player = collision.collider.GetComponent<PlayerControler>();
+        PlayerController player = collision.collider.GetComponent<PlayerController>();
         if (health && player)
         {
             //vector from self-transform to target-transform

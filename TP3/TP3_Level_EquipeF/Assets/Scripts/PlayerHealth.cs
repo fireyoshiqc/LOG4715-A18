@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     Texture HeartTexture;
 
-    PlayerControler PC;
+    PlayerController PC;
     public RespawnController Resetter;
 
     bool mercy;
@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour {
     {
         mercy = false;
         CurrentHealth = MaxHealth;
-        PC = gameObject.GetComponent<PlayerControler>();
+        PC = gameObject.GetComponent<PlayerController>();
 	}
 	
 	// Update is called once per frame

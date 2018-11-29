@@ -6,8 +6,8 @@ public class BrasierController : MonoBehaviour {
 
     private GameObject torch;
     public bool lit = false;
-    public PlayerControler player;
-    public Platform_Mover LinkedDoor;
+    public PlayerController player;
+    public PlatformMover LinkedDoor;
 
     public RespawnController Resetter;
 
