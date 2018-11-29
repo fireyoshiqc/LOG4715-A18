@@ -26,9 +26,14 @@ public class Healbox : MonoBehaviour {
     private void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("Player")) return; //We dont care about touching other objects
-        if (timeSinceEnter > 1/HealthPerSecond)
+
+        if (timeSinceEnter > 1.0f/HealthPerSecond)
         {
-            other.gameObject.SendMessage("Heal", 1, SendMessageOptions.DontRequireReceiver);
+            PlayerHealth health = other.GetComponent<PlayerHealth>();
+            if (health)
+            {
+                health.Heal(1);
+            }
             timeSinceEnter = 0f;
         }
         timeSinceEnter += Time.deltaTime;
