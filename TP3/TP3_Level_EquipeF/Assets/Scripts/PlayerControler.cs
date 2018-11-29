@@ -176,9 +176,8 @@ public class PlayerControler : MonoBehaviour
                 foreach (Collider c in hitColliders)
                 {
                     interacted = true;
-                    //All component attached to the gameObject that have an "ActivateInteraction" function
-                    //will react to the message and call the function.
-                    c.gameObject.SendMessage("ActivateInteraction");
+                    Interactible inter = c.GetComponent<Interactible>();
+                    inter.ActivateInteraction();
                 }
             }
 

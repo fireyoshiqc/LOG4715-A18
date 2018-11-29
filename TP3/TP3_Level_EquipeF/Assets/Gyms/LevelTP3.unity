@@ -5683,6 +5683,11 @@ Prefab:
       propertyPath: m_Name
       value: Basic Torch (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 54179500630577898, guid: 52783d1402a21bc47abbae5fceddb1e5,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52783d1402a21bc47abbae5fceddb1e5, type: 2}
   m_IsPrefabAsset: 0
@@ -9554,6 +9559,11 @@ Prefab:
         type: 2}
       propertyPath: flameLife
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54179500630577898, guid: 52783d1402a21bc47abbae5fceddb1e5,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52783d1402a21bc47abbae5fceddb1e5, type: 2}
