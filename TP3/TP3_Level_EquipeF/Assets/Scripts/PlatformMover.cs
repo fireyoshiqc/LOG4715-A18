@@ -16,10 +16,14 @@ public class PlatformMover : MonoBehaviour {
 
     float timescale = -1;
 
+    private List<GameObject> stuffOnIt;
+    private List<Vector3> offsets;
+
 	// Use this for initialization
 	void Start () {
-		
-	}
+        stuffOnIt = new List<GameObject>();
+        offsets = new List<Vector3>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -33,5 +37,22 @@ public class PlatformMover : MonoBehaviour {
     public void InteractedUpdate(bool status)
     {
         timescale = status ? 1f : -1f;
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        stuffOnIt.Add(other.gameObject);
+        offsets.Add(other.gameObject.transform.position - transform.position);
+    }
+
+    void FixedUpdate()
+    {
+        for (int i = 0; i < stuffOnIt.Count; i++)
+        {
+            stuffOnIt[i].transform.position = transform.position + offsets[i];
+        }
+
+        stuffOnIt.Clear();
+        offsets.Clear();
     }
 }

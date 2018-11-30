@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
             _Grounded = true;
             _Knockedback = false;
             _Anim.SetBool("Grounded", _Grounded);
-        }
+        } 
     }
 
     public void Knockback(Vector3 direction)

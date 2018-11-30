@@ -11,6 +11,7 @@ TagManager:
   - fireball
   - Lava
   - water
+  - heavy
   layers:
   - Default
   - TransparentFX
