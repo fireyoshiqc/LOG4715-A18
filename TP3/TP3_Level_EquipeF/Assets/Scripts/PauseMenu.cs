@@ -41,6 +41,7 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Going back to main menu.");
         Time.timeScale = 1f;
+        paused = false;
         SceneManager.LoadScene(0);
     }
 
