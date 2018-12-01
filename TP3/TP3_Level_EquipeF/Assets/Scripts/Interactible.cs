@@ -51,7 +51,7 @@ public class Interactible : MonoBehaviour {
                 Status = !Status;
                 break;
             case SwitchType.Timed:
-                if (!status)
+                if (!Status)
                 {
                     Status = true;
                     StartCoroutine(Timer());

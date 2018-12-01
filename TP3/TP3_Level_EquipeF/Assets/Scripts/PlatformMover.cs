@@ -49,7 +49,9 @@ public class PlatformMover : MonoBehaviour {
     {
         for (int i = 0; i < stuffOnIt.Count; i++)
         {
+            float oldZ = stuffOnIt[i].transform.position.z;
             stuffOnIt[i].transform.position = transform.position + offsets[i];
+            stuffOnIt[i].transform.position = new Vector3(stuffOnIt[i].transform.position.x, stuffOnIt[i].transform.position.y, oldZ);
         }
 
         stuffOnIt.Clear();
