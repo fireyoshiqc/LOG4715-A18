@@ -11281,7 +11281,6 @@ MonoBehaviour:
   CurrentTorch: {fileID: 507068014}
   ResetList:
   - {fileID: 507068014}
-  - {fileID: 0}
   TA: {fileID: 35154864}
 --- !u!4 &1091016242
 Transform:
@@ -16297,8 +16296,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1486034129}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 67, y: -6, z: 4.1}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: 66.7575, y: -6, z: 4.1}
+  m_LocalScale: {x: 9.5146055, y: 10, z: 10}
   m_Children:
   - {fileID: 737832034}
   m_Father: {fileID: 1999411963}
@@ -20160,7 +20159,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4644085335423296, guid: ff26c7818c7714d4a8d9b414ce5a2759, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4644085335423296, guid: ff26c7818c7714d4a8d9b414ce5a2759, type: 2}
       propertyPath: m_LocalPosition.z
