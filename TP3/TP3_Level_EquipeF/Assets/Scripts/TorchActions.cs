@@ -215,27 +215,25 @@ public class TorchActions : MonoBehaviour
         if (!currentlyHeld)
             return;
 
+
+
         Vector3 mousePos = Input.mousePosition;
-        Ray castPoint = Camera.main.ScreenPointToRay(mousePos);
-        RaycastHit hit;
-        if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
-        {
-            Vector3 direction = (hit.point - currentlyHeld.transform.position);
-            direction.z = 0;
-            direction.Normalize();
+        mousePos.z = -Camera.main.transform.position.z + currentlyHeld.transform.position.z;
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3 direction = (worldPoint - currentlyHeld.transform.position);
+        direction.z = 0;
+        direction.Normalize();
 
-            float forceRatio = (_currentThrowForce / maxThrowForce);
+        float forceRatio = (_currentThrowForce / maxThrowForce);
 
-            Vector3 target = currentlyHeld.transform.position + forceRatio * direction * targetLineLengthModifier;
-            Vector3[] positions = { currentlyHeld.transform.position, target };
+        Vector3 target = currentlyHeld.transform.position + forceRatio * direction * targetLineLengthModifier;
+        Vector3[] positions = { currentlyHeld.transform.position, target };
 
-            _lineRenderer.startWidth = targetLineMaxWidth * forceRatio;
-            _lineRenderer.endWidth = targetLineMaxWidth * forceRatio;
+        _lineRenderer.startWidth = targetLineMaxWidth * forceRatio;
+        _lineRenderer.endWidth = targetLineMaxWidth * forceRatio;
 
-            _lineRenderer.SetPositions(positions);
-            _lineRenderer.enabled = true;
-        }
-
+        _lineRenderer.SetPositions(positions);
+        _lineRenderer.enabled = true;
     }
 
     private void Throw()
@@ -244,8 +242,23 @@ public class TorchActions : MonoBehaviour
             return;
 
         Vector3 mousePos = Input.mousePosition;
+        mousePos.z = -Camera.main.transform.position.z + currentlyHeld.transform.position.z;
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePos);
+        if (currentlyHeld == torch)
+            torch = null;
+        if (currentlyHeld == lantern)
+            lantern = null;
+        currentlyHeld.GetComponent<Rigidbody>().isKinematic = false;
+        guide.GetChild(0).parent = null;
+        Vector3 toMouse = worldPoint - currentlyHeld.transform.position;
+        toMouse.z = 0; // Remove the useless depth component
+        currentlyHeld.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce);
+        currentlyHeld.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0, 1, 0), (toMouse.normalized * _currentThrowForce)));
+        currentlyHeld = null;
+        /*
         Ray castPoint = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
+        
         if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
         {
             if (currentlyHeld == torch)
@@ -260,6 +273,7 @@ public class TorchActions : MonoBehaviour
             currentlyHeld.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0, 1, 0), (toMouse.normalized * _currentThrowForce)));
             currentlyHeld = null;
         }
+        */
         _currentThrowForce = 0.0f;
         _lineRenderer.enabled = false;
     }
