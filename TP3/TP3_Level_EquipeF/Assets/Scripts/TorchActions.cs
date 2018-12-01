@@ -29,6 +29,10 @@ public class TorchActions : MonoBehaviour
 
     private LineRenderer _lineRenderer;
 
+    //le scale de la torche tenue
+    private Vector3 scale;
+    private GameObject emptyObject;
+
     // Use this for initialization
     void Start()
     {
@@ -36,6 +40,7 @@ public class TorchActions : MonoBehaviour
         _lineRenderer.startWidth = targetLineMaxWidth;
         _lineRenderer.endWidth = targetLineMaxWidth;
         _lineRenderer.enabled = false;
+        emptyObject = new GameObject();
     }
 
     // Update is called once per frame
@@ -158,7 +163,10 @@ public class TorchActions : MonoBehaviour
         if (torch)
         {
             torch.GetComponent<Rigidbody>().isKinematic = true;
-            torch.transform.SetParent(guide);
+            scale = torch.transform.localScale;
+            emptyObject.transform.parent = guide.transform;
+            torch.transform.parent = emptyObject.transform;
+            torch.transform.localScale = scale;
             torch.transform.localRotation = guide.rotation;
             torch.transform.Rotate(0, 0, 180); // Rotate otherwise it's upside-down...
             torch.transform.position = guide.position;
@@ -202,7 +210,7 @@ public class TorchActions : MonoBehaviour
             scepter = null;
         }
         currentlyHeld.GetComponent<Rigidbody>().isKinematic = false;
-        guide.GetChild(0).parent = null;
+        currentlyHeld.transform.parent = null;
         currentlyHeld = null;
         if (torch || lantern || scepter)
         {
@@ -266,10 +274,12 @@ public class TorchActions : MonoBehaviour
             if (currentlyHeld == lantern)
                 lantern = null;
             currentlyHeld.GetComponent<Rigidbody>().isKinematic = false;
-            guide.GetChild(0).parent = null;
+            //guide.GetChild(0).GetChild(0).parent = null;
+            currentlyHeld.transform.parent = null;
             Vector3 toMouse = hit.point - currentlyHeld.transform.position;
             toMouse.z = 0; // Remove the useless depth component
             currentlyHeld.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce);
+            Debug.Log(currentlyHeld.GetComponent<Rigidbody>().ToString());
             currentlyHeld.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0, 1, 0), (toMouse.normalized * _currentThrowForce)));
             currentlyHeld = null;
         }
