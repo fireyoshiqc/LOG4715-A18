@@ -38,6 +38,14 @@ public class PlayerController : MonoBehaviour
 
     TorchActions torchAction;
 
+    public AudioClip leftSlowFootstep;
+    public AudioClip rightSlowFootstep;
+    public AudioClip leftFootstep;
+    public AudioClip rightFootstep;
+    private bool isLeftFootstep;
+    private AudioSource sfx;
+
+
     float _DEPTH;
 
     // Awake se produit avait le Start. Il peut être bien de régler les références dans cette section.
@@ -47,6 +55,7 @@ public class PlayerController : MonoBehaviour
         _Rb = GetComponent<Rigidbody>();
         _DEPTH = _Rb.position.z;
         torchAction = GetComponentInChildren<TorchActions>();
+        sfx = GetComponent<AudioSource>();
     }
 
     // Utile pour régler des valeurs aux objets
@@ -56,6 +65,7 @@ public class PlayerController : MonoBehaviour
         _Grounded = false;
         _Flipped = false;
         _Knockedback = false;
+        isLeftFootstep = false;
     }
 
     // Vérifie les entrées de commandes du joueur
@@ -205,6 +215,25 @@ public class PlayerController : MonoBehaviour
         _Grounded = true;
         _Knockedback = false;
         _Anim.SetBool("Grounded", _Grounded);
+    }
+
+    public void SlowFootstep()
+    {
+        if (sfx && isGrounded())
+        {
+            sfx.clip = isLeftFootstep ? leftSlowFootstep : rightSlowFootstep;
+        }
+        sfx.Play();
+        isLeftFootstep = !isLeftFootstep;
+    }
+    public void Footstep()
+    {
+        if (sfx && isGrounded())
+        {
+            sfx.clip = isLeftFootstep ? leftFootstep : rightFootstep;
+        }
+        sfx.Play();
+        isLeftFootstep = !isLeftFootstep;
     }
 
     IEnumerator KnockbackTimer()
