@@ -11,8 +11,20 @@ public class BrasierController : MonoBehaviour {
 
     public RespawnController Resetter;
 
+    private AudioSource source;
+    private float initVolume;
+
 	// Use this for initialization
 	void Start () {
+        source = GetComponent<AudioSource>();
+        if (source)
+        {
+            initVolume = source.volume;
+        }
+        else
+        {
+            initVolume = 0.0f;
+        }
         if (!lit)
         {
             PutOut();
@@ -61,6 +73,10 @@ public class BrasierController : MonoBehaviour {
         player.SpawnPos.x = transform.position.x;
         if(LinkedDoor)
             LinkedDoor.InteractedUpdate(true);
+        if (source)
+        {
+            source.volume = initVolume;
+        }
     }
 
     void PutOut()
@@ -71,6 +87,10 @@ public class BrasierController : MonoBehaviour {
         foreach (Light light in lights)
         {
             light.enabled = false;
+        }
+        if (source)
+        {
+            source.volume = 0.0f;
         }
     }
 }

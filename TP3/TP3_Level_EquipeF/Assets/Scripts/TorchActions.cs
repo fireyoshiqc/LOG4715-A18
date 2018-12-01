@@ -262,28 +262,14 @@ public class TorchActions : MonoBehaviour
         toMouse.z = 0; // Remove the useless depth component
         currentlyHeld.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce);
         currentlyHeld.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0, 1, 0), (toMouse.normalized * _currentThrowForce)));
-        currentlyHeld = null;
-        /*
-        Ray castPoint = Camera.main.ScreenPointToRay(mousePos);
-        RaycastHit hit;
-        
-        if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
+        AudioSource sfx = currentlyHeld.GetComponent<AudioSource>();
+        FlameController flame = currentlyHeld.GetComponent<FlameController>();
+        if (sfx && flame && flame.flameLife > 0.0f)
         {
-            if (currentlyHeld == torch)
-                torch = null;
-            if (currentlyHeld == lantern)
-                lantern = null;
-            currentlyHeld.GetComponent<Rigidbody>().isKinematic = false;
-            //guide.GetChild(0).GetChild(0).parent = null;
-            currentlyHeld.transform.parent = null;
-            Vector3 toMouse = hit.point - currentlyHeld.transform.position;
-            toMouse.z = 0; // Remove the useless depth component
-            currentlyHeld.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce);
-            Debug.Log(currentlyHeld.GetComponent<Rigidbody>().ToString());
-            currentlyHeld.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0, 1, 0), (toMouse.normalized * _currentThrowForce)));
-            currentlyHeld = null;
+            sfx.Play();
         }
-        */
+        currentlyHeld = null;
+
         _currentThrowForce = 0.0f;
         _lineRenderer.enabled = false;
     }
