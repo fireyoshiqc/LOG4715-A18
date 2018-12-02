@@ -38,7 +38,7 @@ public class BrasierController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "torch")
+        if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
         {
             if (!torch)
                 torch = col.gameObject;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5270,6 +5270,7 @@ Transform:
   - {fileID: 642294649}
   - {fileID: 1232509590}
   - {fileID: 718840108}
+  - {fileID: 1997791224}
   - {fileID: 923644238}
   - {fileID: 1225108285}
   - {fileID: 351878638}
@@ -5278,76 +5279,75 @@ Transform:
   - {fileID: 785284605}
   - {fileID: 1582350709}
   - {fileID: 2066658996}
-  - {fileID: 543790741}
+  - {fileID: 1617035679}
   - {fileID: 309404895}
-  - {fileID: 1997791224}
   - {fileID: 26771543}
+  - {fileID: 1502890257}
   - {fileID: 70270019}
   - {fileID: 1174338194}
-  - {fileID: 387934814}
   - {fileID: 2093868793}
-  - {fileID: 392321519}
+  - {fileID: 864108927}
   - {fileID: 1824893283}
-  - {fileID: 1223879989}
+  - {fileID: 717758863}
+  - {fileID: 543790741}
   - {fileID: 1534612768}
   - {fileID: 390896748}
   - {fileID: 891591292}
+  - {fileID: 1260202738}
   - {fileID: 1087007340}
-  - {fileID: 1617035679}
+  - {fileID: 387934814}
+  - {fileID: 1146986886}
   - {fileID: 1650840514}
   - {fileID: 1137457206}
   - {fileID: 1350874094}
+  - {fileID: 392321519}
+  - {fileID: 1223879989}
   - {fileID: 1465417837}
-  - {fileID: 2083485488}
+  - {fileID: 1321904409}
   - {fileID: 1988070486}
   - {fileID: 1796096179}
   - {fileID: 1945830632}
-  - {fileID: 864108927}
   - {fileID: 413294370}
-  - {fileID: 1499875976}
+  - {fileID: 339817893}
+  - {fileID: 2083485488}
   - {fileID: 899006231}
-  - {fileID: 717758863}
   - {fileID: 1020663588}
   - {fileID: 1895444989}
   - {fileID: 1628549598}
-  - {fileID: 1502890257}
-  - {fileID: 1916550985}
-  - {fileID: 1260202738}
-  - {fileID: 52430465}
-  - {fileID: 1146986886}
+  - {fileID: 635963317}
+  - {fileID: 426917421}
   - {fileID: 456936505}
-  - {fileID: 1321904409}
+  - {fileID: 1499875976}
   - {fileID: 212355067}
   - {fileID: 21894265}
-  - {fileID: 339817893}
-  - {fileID: 635963317}
+  - {fileID: 1916550985}
   - {fileID: 1592319379}
+  - {fileID: 1906695053}
   - {fileID: 1548314959}
   - {fileID: 1349234692}
-  - {fileID: 426917421}
+  - {fileID: 52430465}
   - {fileID: 671433946}
-  - {fileID: 1541423911}
-  - {fileID: 11736378}
+  - {fileID: 805803326}
+  - {fileID: 1912214178}
   - {fileID: 1628701975}
   - {fileID: 220521106}
   - {fileID: 742323912}
   - {fileID: 1179968088}
-  - {fileID: 1906695053}
+  - {fileID: 1541423911}
+  - {fileID: 11736378}
   - {fileID: 801665690}
+  - {fileID: 1185739516}
   - {fileID: 1463277656}
   - {fileID: 2070031431}
-  - {fileID: 805803326}
   - {fileID: 1235490099}
+  - {fileID: 373361049}
   - {fileID: 405060340}
-  - {fileID: 1912214178}
   - {fileID: 876395961}
-  - {fileID: 1185739516}
   - {fileID: 115359940}
   - {fileID: 239110578}
-  - {fileID: 373361049}
   - {fileID: 188034395}
-  - {fileID: 474355681}
   - {fileID: 737354661}
+  - {fileID: 474355681}
   - {fileID: 1504325723}
   - {fileID: 1977484745}
   - {fileID: 1213011326}
@@ -16068,8 +16068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentTorch: {fileID: 507068014}
-  ResetList:
-  - {fileID: 0}
+  ResetList: []
   TA: {fileID: 35154864}
 --- !u!4 &1091016242
 Transform:
