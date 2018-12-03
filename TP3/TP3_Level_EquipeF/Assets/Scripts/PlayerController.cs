@@ -202,12 +202,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider col)
-    {
-        if (col.gameObject.tag == "Lava")
-            Respawn();
-    }
-
     public void Respawn()
     {
         transform.position = SpawnPos;
