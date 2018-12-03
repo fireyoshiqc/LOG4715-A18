@@ -12,6 +12,8 @@ public class PlatformMover : MonoBehaviour {
     [Range(0.1f, 10)]
     float TimeToMove;
 
+    public bool canMoveObjects = false;
+
     float currentTime = 0;
 
     float timescale = -1;
@@ -41,13 +43,19 @@ public class PlatformMover : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        stuffOnIt.Add(other.gameObject);
-        offsets.Add(other.gameObject.transform.position - transform.position);
+        if (canMoveObjects)
+        {
+            stuffOnIt.Add(other.gameObject);
+            offsets.Add(other.gameObject.transform.position - transform.position);
+        }
+        
     }
 
     void FixedUpdate()
     {
-        for (int i = 0; i < stuffOnIt.Count; i++)
+        if (canMoveObjects)
+        {
+            for (int i = 0; i < stuffOnIt.Count; i++)
         {
             float oldZ = stuffOnIt[i].transform.position.z;
             stuffOnIt[i].transform.position = transform.position + offsets[i];
@@ -56,5 +64,6 @@ public class PlatformMover : MonoBehaviour {
 
         stuffOnIt.Clear();
         offsets.Clear();
+        }
     }
 }
