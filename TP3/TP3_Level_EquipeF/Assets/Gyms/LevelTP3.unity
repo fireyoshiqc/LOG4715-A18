@@ -21436,6 +21436,11 @@ Prefab:
       propertyPath: LinkedDoor
       value: 
       objectReference: {fileID: 1255682066}
+    - target: {fileID: 114558834215126648, guid: 888e122b9e6aa0e47ac34ff04fa8323b,
+        type: 2}
+      propertyPath: Resetter
+      value: 
+      objectReference: {fileID: 1091016241}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 888e122b9e6aa0e47ac34ff04fa8323b, type: 2}
   m_IsPrefabAsset: 0
