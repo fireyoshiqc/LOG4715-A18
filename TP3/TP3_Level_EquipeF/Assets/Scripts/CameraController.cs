@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour {
     public float lookAheadFactor = 3;
     public float lookAheadReturnSpeed = 0.5f;
     public float lookAheadMoveThreshold = 0.1f;
-
+    
     float offsetZ;
     Vector3 lastTargetPosition;
     Vector3 currentVelocity;

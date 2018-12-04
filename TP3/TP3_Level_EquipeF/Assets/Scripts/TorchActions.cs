@@ -27,6 +27,8 @@ public class TorchActions : MonoBehaviour
     public float targetLineLengthModifier = 3.0f;
     public float targetLineMaxWidth = 0.05f;
 
+    private PlayerController Pc;
+
     private LineRenderer _lineRenderer;
 
     //le scale de la torche tenue
@@ -41,6 +43,7 @@ public class TorchActions : MonoBehaviour
         _lineRenderer.endWidth = targetLineMaxWidth;
         _lineRenderer.enabled = false;
         emptyObject = new GameObject();
+        Pc = GetComponentInParent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -62,37 +65,39 @@ public class TorchActions : MonoBehaviour
                 scepter.transform.position = guide.position + new Vector3(0f, 1f, 0f);
         }
 
-
-        if (Input.GetMouseButton(0))
+        if (!Pc.isCutsceneControlled)
         {
-            if (currentlyHeld && (currentlyHeld != scepter || (currentlyHeld == scepter && currentScepterDelay < float.Epsilon)))
+            if (Input.GetMouseButton(0))
             {
-                DrawThrowTarget();
-                if (_currentThrowForce < maxThrowForce)
+                if (currentlyHeld && (currentlyHeld != scepter || (currentlyHeld == scepter && currentScepterDelay < float.Epsilon)))
                 {
-                    _currentThrowForce += throwChargeRate * Time.deltaTime; // Multiply by deltatime to ensure it's framerate-independant
-                    if (_currentThrowForce >= maxThrowForce)
-                        _currentThrowForce = maxThrowForce;
+                    DrawThrowTarget();
+                    if (_currentThrowForce < maxThrowForce)
+                    {
+                        _currentThrowForce += throwChargeRate * Time.deltaTime; // Multiply by deltatime to ensure it's framerate-independant
+                        if (_currentThrowForce >= maxThrowForce)
+                            _currentThrowForce = maxThrowForce;
+                    }
+                }
+                else
+                {
+                    _currentThrowForce = 0.0f;
+                    _lineRenderer.enabled = false;
                 }
             }
-            else
-            {
-                _currentThrowForce = 0.0f;
-                _lineRenderer.enabled = false;
-            }
-        }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (currentlyHeld)
+            if (Input.GetMouseButtonUp(0))
             {
-                if (currentlyHeld != scepter)
+                if (currentlyHeld)
                 {
-                    Throw();
-                }
-                else if(currentScepterDelay < float.Epsilon)
-                {
-                    ShootFireBall();
+                    if (currentlyHeld != scepter)
+                    {
+                        Throw();
+                    }
+                    else if (currentScepterDelay < float.Epsilon)
+                    {
+                        ShootFireBall();
+                    }
                 }
             }
         }

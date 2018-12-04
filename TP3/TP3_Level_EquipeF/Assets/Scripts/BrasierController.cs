@@ -9,6 +9,9 @@ public class BrasierController : MonoBehaviour {
     public PlayerController player;
     public PlatformMover LinkedDoor;
 
+    public bool isFinal = false;
+    public bool exitRight = true;
+
     public RespawnController Resetter;
 
     private AudioSource source;
@@ -71,11 +74,18 @@ public class BrasierController : MonoBehaviour {
         }
         player.SpawnPos.y = transform.position.y;
         player.SpawnPos.x = transform.position.x;
-        if(LinkedDoor)
-            LinkedDoor.InteractedUpdate(true);
-        if (source)
+        if(isFinal)
         {
-            source.volume = initVolume;
+            StartCoroutine(Cutscene());
+        }
+        else
+        {
+            if(LinkedDoor)
+                LinkedDoor.InteractedUpdate(true);
+            if (source)
+            {
+                source.volume = initVolume;
+            }
         }
     }
 
@@ -93,4 +103,31 @@ public class BrasierController : MonoBehaviour {
             source.volume = 0.0f;
         }
     }
+
+    IEnumerator Cutscene()
+    {
+        //Light up, turn around
+        float direction = exitRight ? 1 : -1;
+        player.isCutsceneControlled = true;
+        if (source)
+        {
+            source.volume = initVolume;
+        }
+        player.FlipCharacter(direction);
+        //Lock camera
+        var cam = GameObject.FindWithTag("MainCamera").GetComponent<CameraController>();
+        if (cam)
+            cam.target = transform;
+        yield return new WaitForSeconds(1);
+        //Dramatic door opening
+        if (LinkedDoor)
+            LinkedDoor.InteractedUpdate(true);
+        yield return new WaitForSeconds(3);
+        //Walk into the sunset
+        player.cutsceneInput = direction;
+        yield return new WaitForSeconds(2);
+        //Quit
+        SceneManager.LoadScene(0);
+    }
+
 }

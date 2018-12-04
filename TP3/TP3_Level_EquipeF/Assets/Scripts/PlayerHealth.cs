@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		if (CurrentHealth == 0 || Input.GetKeyDown(KeyCode.R))
+		if (CurrentHealth == 0 || (Input.GetKeyDown(KeyCode.R) && !PC.isCutsceneControlled))
         {
             //Death?
             PC.Respawn();

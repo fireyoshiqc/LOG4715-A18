@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
     private bool isLeftFootstep;
     private AudioSource sfx;
 
+    //Set quand on veux arrêter le contrôle du personnage
+    public bool isCutsceneControlled = false;
+    public float cutsceneInput = 0f;
 
     float _DEPTH;
 
@@ -71,10 +74,10 @@ public class PlayerController : MonoBehaviour
     // Vérifie les entrées de commandes du joueur
     void Update()
     {
-        var horizontal = Input.GetAxis("Horizontal") * MoveSpeed;
+        var horizontal = (isCutsceneControlled? cutsceneInput : Input.GetAxis("Horizontal")) * MoveSpeed;
         HorizontalMove(horizontal);
         FlipCharacter(horizontal);
-        if (!PauseMenu.paused)
+        if (!PauseMenu.paused && !isCutsceneControlled)
         {
             CheckJump();
             CheckInteract();
@@ -128,7 +131,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Gère l'orientation du joueur et les ajustements de la camera
-    void FlipCharacter(float horizontal)
+    public void FlipCharacter(float horizontal)
     {
         if (horizontal < 0 && !_Flipped)
         {
