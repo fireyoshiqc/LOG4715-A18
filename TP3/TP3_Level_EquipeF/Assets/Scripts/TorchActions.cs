@@ -71,13 +71,13 @@ public class TorchActions : MonoBehaviour
             {
                 if (currentlyHeld && (currentlyHeld != scepter || (currentlyHeld == scepter && currentScepterDelay < float.Epsilon)))
                 {
-                    DrawThrowTarget();
                     if (_currentThrowForce < maxThrowForce)
                     {
                         _currentThrowForce += throwChargeRate * Time.deltaTime; // Multiply by deltatime to ensure it's framerate-independant
                         if (_currentThrowForce >= maxThrowForce)
                             _currentThrowForce = maxThrowForce;
                     }
+                    DrawThrowTarget();
                 }
                 else
                 {
@@ -240,13 +240,46 @@ public class TorchActions : MonoBehaviour
         float forceRatio = (_currentThrowForce / maxThrowForce);
 
         Vector3 target = currentlyHeld.transform.position + forceRatio * direction * targetLineLengthModifier;
-        Vector3[] positions = { currentlyHeld.transform.position, target };
+        //Vector3[] positions = { currentlyHeld.transform.position, target };
 
         _lineRenderer.startWidth = targetLineMaxWidth * forceRatio;
         _lineRenderer.endWidth = targetLineMaxWidth * forceRatio;
-
-        _lineRenderer.SetPositions(positions);
+        List<Vector3> throwArc = CalculateThrowArc(currentlyHeld.transform.position, target);
+        _lineRenderer.positionCount = throwArc.Count;
+        _lineRenderer.SetPositions(throwArc.ToArray());
         _lineRenderer.enabled = true;
+    }
+
+    private List<Vector3> CalculateThrowArc(Vector3 source, Vector3 target)
+    {
+        List<Vector3> arcArray = new List<Vector3>();
+        Vector3 lineOfAim = target - source;
+        float angle = Mathf.Atan(lineOfAim.y / lineOfAim.x);
+        if (lineOfAim.x < 0.0f)
+        {
+            angle += Mathf.PI;
+        }
+        if (lineOfAim.x > 0.0f)
+        {
+            angle += 2 * Mathf.PI;
+        }
+        float estimatedVelocity = lineOfAim.magnitude * (10.0f / targetLineLengthModifier);
+        //float maxDistance = (estimatedVelocity * estimatedVelocity * Mathf.Sin(2 * angle)) / gravity;
+
+        for (int i = 0; i < 50; i++)
+        {
+            float t = (float)i / 50.0f;
+            float x = t * lineOfAim.x;
+            float y = x * Mathf.Tan(angle) - ((Mathf.Abs(Physics.gravity.y) * x * x) / (2 * estimatedVelocity * estimatedVelocity * Mathf.Cos(angle) * Mathf.Cos(angle)));
+            arcArray.Add(new Vector3(source.x + x, source.y + y, source.z));
+            RaycastHit hitInfo;
+            if (i > 0 && Physics.Linecast(arcArray[i - 1], arcArray[i], out hitInfo))
+            {
+                return arcArray;
+            }
+        }
+        return arcArray;
+
     }
 
     private void Throw()
