@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class BrasierController : MonoBehaviour {
-
-    private GameObject torch;
+    
     public bool lit = false;
     public PlayerController player;
     public PlatformMover LinkedDoor;
@@ -44,8 +43,7 @@ public class BrasierController : MonoBehaviour {
     {
         if (col.gameObject.tag == "torch" || col.gameObject.tag == "lantern")
         {
-            if (!torch)
-                torch = col.gameObject;
+            GameObject torch = col.gameObject;
             FlameController flame = torch.GetComponent<FlameController>();
             if (flame.flameLife > 0.0f && !lit)
             {
