@@ -11,6 +11,7 @@ public class TorchActions : MonoBehaviour
     public GameObject currentlyHeld;
     public Transform guide;
     public Transform fireball;
+    public LayerMask lineCastMask;
 
     public float maxThrowForce = 5.0f;
     public float throwChargeRate = 3.5f;
@@ -276,7 +277,7 @@ public class TorchActions : MonoBehaviour
             float y = x * Mathf.Tan(angle) - ((Mathf.Abs(Physics.gravity.y) * x * x) / (2 * estimatedVelocity * estimatedVelocity * Mathf.Cos(angle) * Mathf.Cos(angle)));
             arcArray.Add(new Vector3(source.x + x, source.y + y, source.z));
             RaycastHit hitInfo;
-            if (i > 0 && Physics.Linecast(arcArray[i - 1], arcArray[i], out hitInfo))
+            if (i > 0 && Physics.Linecast(arcArray[i - 1], arcArray[i], out hitInfo, lineCastMask))
             {
                 return arcArray;
             }
