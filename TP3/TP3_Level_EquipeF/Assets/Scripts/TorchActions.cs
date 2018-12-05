@@ -180,7 +180,10 @@ public class TorchActions : MonoBehaviour
         else if (lantern)
         {
             lantern.GetComponent<Rigidbody>().isKinematic = true;
-            lantern.transform.SetParent(guide);
+            scale = lantern.transform.localScale;
+            emptyObject.transform.parent = guide.transform;
+            lantern.transform.parent = emptyObject.transform;
+            lantern.transform.localScale = scale;
             lantern.transform.localRotation = guide.rotation;
             lantern.transform.Rotate(-90, 0, 0); // Rotate for 3D model
             lantern.transform.position = guide.position;
