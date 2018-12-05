@@ -65331,6 +65331,16 @@ Prefab:
       propertyPath: MaxDistance
       value: 18.307556
       objectReference: {fileID: 0}
+    - target: {fileID: 114330715954925646, guid: ff26c7818c7714d4a8d9b414ce5a2759,
+        type: 2}
+      propertyPath: pickupSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b7db7ff580d9848ed8f011953f466b66, type: 3}
+    - target: {fileID: 114330715954925646, guid: ff26c7818c7714d4a8d9b414ce5a2759,
+        type: 2}
+      propertyPath: interactSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f13633ea56974e6dbf63eb99fa6c851, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff26c7818c7714d4a8d9b414ce5a2759, type: 2}
   m_IsPrefabAsset: 0
@@ -73997,6 +74007,11 @@ Prefab:
         type: 2}
       propertyPath: m_Radius
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114473527927491518, guid: b37be11205e768a488ff9bcf2d316cf9,
+        type: 2}
+      propertyPath: regenRate
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b37be11205e768a488ff9bcf2d316cf9, type: 2}

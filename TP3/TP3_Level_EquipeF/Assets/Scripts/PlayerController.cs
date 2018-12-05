@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip rightSlowFootstep;
     public AudioClip leftFootstep;
     public AudioClip rightFootstep;
+    public AudioClip pickupSound;
+    public AudioClip interactSound;
     private bool isLeftFootstep;
     private AudioSource sfx;
 
@@ -182,7 +184,15 @@ public class PlayerController : MonoBehaviour
         {
             bool interacted = false;
             if (!torchAction.currentlyHeld)
+            {
                 interacted = torchAction.Pickup();
+                if (interacted && sfx)
+                {
+                    sfx.clip = pickupSound;
+                    sfx.Play();
+                }
+            }
+                
 
             if (!interacted)
             {
@@ -194,6 +204,11 @@ public class PlayerController : MonoBehaviour
                     interacted = true;
                     Interactible inter = c.GetComponent<Interactible>();
                     inter.ActivateInteraction();
+                    if (sfx)
+                    {
+                        sfx.clip = interactSound;
+                        sfx.Play();
+                    }
                 }
             }
 
@@ -228,10 +243,11 @@ public class PlayerController : MonoBehaviour
         if (sfx && isGrounded())
         {
             sfx.clip = isLeftFootstep ? leftFootstep : rightFootstep;
+            sfx.Play();
         }
-        sfx.Play();
         isLeftFootstep = !isLeftFootstep;
     }
+
 
     IEnumerator KnockbackTimer()
     {
