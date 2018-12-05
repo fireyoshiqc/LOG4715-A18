@@ -12,8 +12,8 @@ public class TorchActions : MonoBehaviour
     public Transform guide;
     public Transform fireball;
 
-    public float maxThrowForce = 500.0f;
-    public float throwChargeRate = 350.0f;
+    public float maxThrowForce = 5.0f;
+    public float throwChargeRate = 3.5f;
     [Range(0.0f, 100.0f)]
     public float fireBallBaseSpeed = 3;
     //coût en % de la vie de la torche maximale pour un tir chargé au maximum
@@ -301,8 +301,8 @@ public class TorchActions : MonoBehaviour
         guide.GetChild(0).parent = null;
         Vector3 toMouse = worldPoint - currentlyHeld.transform.position;
         toMouse.z = 0; // Remove the useless depth component
-        currentlyHeld.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce);
-        currentlyHeld.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0, 1, 0), (toMouse.normalized * _currentThrowForce)));
+        currentlyHeld.GetComponent<Rigidbody>().AddForce(toMouse.normalized * _currentThrowForce, ForceMode.Impulse);
+        currentlyHeld.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(new Vector3(0, 1, 0), (toMouse.normalized * _currentThrowForce)), ForceMode.Impulse);
         AudioSource sfx = currentlyHeld.GetComponent<AudioSource>();
         FlameController flame = currentlyHeld.GetComponent<FlameController>();
         if (sfx && flame && flame.flameLife > 0.0f)
