@@ -65,7 +65,7 @@ public class TorchActions : MonoBehaviour
                 scepter.transform.position = guide.position + new Vector3(0f, 1f, 0f);
         }
 
-        if (!Pc.isCutsceneControlled)
+        if (!PauseMenu.paused && !Pc.isCutsceneControlled)
         {
             if (Input.GetMouseButton(0))
             {
