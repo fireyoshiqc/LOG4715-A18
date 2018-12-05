@@ -66213,7 +66213,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4644085335423296, guid: ff26c7818c7714d4a8d9b414ce5a2759, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 32
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4644085335423296, guid: ff26c7818c7714d4a8d9b414ce5a2759, type: 2}
       propertyPath: m_LocalPosition.y
@@ -66291,6 +66291,11 @@ Prefab:
         type: 2}
       propertyPath: targetLineLengthModifier
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114626213584141176, guid: ff26c7818c7714d4a8d9b414ce5a2759,
+        type: 2}
+      propertyPath: lineCastMask.m_Bits
+      value: 290067
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff26c7818c7714d4a8d9b414ce5a2759, type: 2}
