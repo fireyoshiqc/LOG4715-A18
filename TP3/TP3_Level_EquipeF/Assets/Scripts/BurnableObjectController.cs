@@ -139,6 +139,9 @@ public class BurnableObjectController : MonoBehaviour
             {
                 lit = true;
                 flameEmission.enabled = true;
+                AudioSource burnSound = GetComponent<AudioSource>();
+                if (burnSound)
+                    burnSound.Play();
             }
         }
         else if (col.gameObject.tag == "burns")
