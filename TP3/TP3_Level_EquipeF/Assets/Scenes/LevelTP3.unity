@@ -27536,6 +27536,7 @@ GameObject:
   - component: {fileID: 688764152}
   - component: {fileID: 688764156}
   - component: {fileID: 688764157}
+  - component: {fileID: 688764153}
   m_Layer: 0
   m_Name: Lava
   m_TagString: Lava
@@ -27571,6 +27572,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollSpeedX: 0
   scrollSpeedY: -0.1
+--- !u!65 &688764153
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 688764150}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &688764154
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -73752,7 +73765,7 @@ Prefab:
     - target: {fileID: 114398373508821754, guid: 52783d1402a21bc47abbae5fceddb1e5,
         type: 2}
       propertyPath: flameLife
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 54179500630577898, guid: 52783d1402a21bc47abbae5fceddb1e5,
         type: 2}
