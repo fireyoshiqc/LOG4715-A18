@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Healbox : MonoBehaviour {
 
-    [SerializeField]
     [Range(0, 10)]
-    float HealthPerSecond = 1f;
+    public float HealthPerSecond = 1f;
 
     // Use this for initialization
     void Start () {

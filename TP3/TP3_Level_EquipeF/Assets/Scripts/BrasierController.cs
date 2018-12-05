@@ -17,6 +17,9 @@ public class BrasierController : MonoBehaviour {
     private AudioSource source;
     private float initVolume;
 
+    private Healbox heal;
+    private float initialHeal;
+
 	// Use this for initialization
 	void Start () {
         source = GetComponent<AudioSource>();
@@ -32,6 +35,13 @@ public class BrasierController : MonoBehaviour {
         {
             PutOut();
         }
+        heal = GetComponent<Healbox>();
+        if (heal)
+        {
+            initialHeal = heal.HealthPerSecond;
+            heal.HealthPerSecond = 0.0f;
+        }
+            
     }
 	
 	// Update is called once per frame
@@ -71,6 +81,8 @@ public class BrasierController : MonoBehaviour {
         {
             light.enabled = true;
         }
+        if (heal)
+            heal.HealthPerSecond = initialHeal;
         player.SpawnPos.y = transform.position.y;
         player.SpawnPos.x = transform.position.x;
         if(isFinal)
@@ -97,6 +109,8 @@ public class BrasierController : MonoBehaviour {
         {
             light.enabled = false;
         }
+        if (heal)
+            heal.HealthPerSecond = 0.0f;
         if (source)
         {
             source.volume = 0.0f;
